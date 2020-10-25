@@ -1,0 +1,30 @@
+﻿<UserControl x:Class="tPix.LocationConfigurator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:tPix"
+             mc:Ignorable="d" >
+    <Grid Height="50" Background="Red" >
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <TextBlock Grid.Column="0" Text="{Binding LocationName}"/>
+    <ComboBox Grid.Column="1"
+              ItemsSource="{Binding LineCollection}"
+              SelectedIndex="{Binding LinesIndex}"/>
+    <ComboBox Grid.Column="2"
+              ItemsSource="{Binding CountyCollection}"
+              SelectedIndex="{Binding CountiesIndex}"/>
+    <ComboBox Grid.Column="3"
+              ItemsSource="{Binding RegionCollection}"
+              SelectedIndex="{Binding RegionsIndex}"/>
+    <ComboBox Grid.Column="4"
+              ItemsSource="{Binding Big4Collection}"
+              SelectedIndex="{Binding Big4RegionsIndex}"/>
+  </Grid>
+</UserControl>
