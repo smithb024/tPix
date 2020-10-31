@@ -18,6 +18,9 @@
     private List<IImageDetails> allImages;
     private string basePath;
 
+        /// <summary>
+        /// Manager class
+        /// </summary>
     public BLManager()
     {
       //basePath = "C:\\_myDocs\\bert\\03_projects\\my_programing\\cSharpWPF\\tPix\\tPix\\bin\\Debug//testDb";
