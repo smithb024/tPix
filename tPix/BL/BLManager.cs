@@ -19,36 +19,36 @@
     private string basePath;
 
         /// <summary>
-        /// Manager class
+        /// Initialises a new instance of the <see cref="BLManager"/> class.
         /// </summary>
-    public BLManager()
-    {
-      //basePath = "C:\\_myDocs\\bert\\03_projects\\my_programing\\cSharpWPF\\tPix\\tPix\\bin\\Debug//testDb";
-      basePath = "C:\\_myDocs\\bert\\01_common_stuff\\ba_0811\\pics";
-      randomGenerator = new Random();
+        public BLManager()
+        {
+            //basePath = "C:\\_myDocs\\bert\\03_projects\\my_programing\\cSharpWPF\\tPix\\tPix\\bin\\Debug//testDb";
+            basePath = "C:\\_myDocs\\bert\\01_common_stuff\\ba_0811\\pics";
+            randomGenerator = new Random();
 
-      Factories.ClsNmbFactory clsNmbReader = new BL.Factories.ClsNmbFactory(basePath);
-      Factories.ImageReader reader = new BL.Factories.ImageReader(basePath);
+            Factories.ClsNmbFactory clsNmbReader = new BL.Factories.ClsNmbFactory(basePath);
+            Factories.ImageReader reader = new BL.Factories.ImageReader(basePath);
 
-      this.faultManager = new BL.Model.FaultManager();
+            this.faultManager = new BL.Model.FaultManager();
 
-      this.locationManager =
-        new BL.Model.LocationManager(
-          basePath,
-          faultManager);
-      this.clsNmbManager =
-        new ClsNmbManager(
-        clsNmbReader.ReadClsDetails(
-          faultManager));
+            this.locationManager =
+              new BL.Model.LocationManager(
+                basePath,
+                faultManager);
+            this.clsNmbManager =
+              new ClsNmbManager(
+              clsNmbReader.ReadClsDetails(
+                faultManager));
 
-      this.allImages =
-        reader.ReadImages(
-        locationManager,
-        clsNmbManager,
-        faultManager);
+            this.allImages =
+              reader.ReadImages(
+              locationManager,
+              clsNmbManager,
+              faultManager);
 
-      locationManager.Save();
-    }
+            locationManager.Save();
+        }
 
     public string BasePath => this.basePath;
 
