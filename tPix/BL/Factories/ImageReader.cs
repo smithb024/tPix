@@ -1,9 +1,11 @@
 ﻿namespace tPix.BL.Factories
 {
-    using System.Collections.Generic;
     using Interfaces;
-    using Interfaces.Factories;
     using Interfaces.ClsNmbConfig;
+    using Interfaces.Factories;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
 
     public class ImageReader : IImageReader
     {
@@ -38,8 +40,10 @@
         {
             this.Initialise();
 
-            string[] directories = System.IO.Directory.GetDirectories(basePath);
-            string[] files = System.IO.Directory.GetFiles(basePath, "*.jpg");
+            string[] directories = Directory.GetDirectories(this.basePath);
+            string[] jpgFiles = Directory.GetFiles(this.basePath, "*.jpg");
+            string[] pngFiles = Directory.GetFiles(this.basePath, "*.png");
+            string[] files = jpgFiles.Concat(pngFiles).ToArray();
 
             if (files != null && files.Length > 0)
             {
@@ -97,7 +101,9 @@
             for (int index = 0; index < directories.Length; ++index)
             {
                 string[] subDirectories = System.IO.Directory.GetDirectories(directories[index]);
-                string[] files = System.IO.Directory.GetFiles(directories[index], "*.jpg");
+                string[] jpgFiles = Directory.GetFiles(directories[index], "*.jpg");
+                string[] pngFiles = Directory.GetFiles(directories[index], "*.png");
+                string[] files = jpgFiles.Concat(pngFiles).ToArray();
 
                 if (files != null && files.Length > 0)
                 {
