@@ -99,6 +99,7 @@
     <Compile Include="Common\ImageDescription.cs" />
     <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Converters\LocationToBoolConverter.cs" />
+    <Compile Include="IocFactory.cs" />
     <Compile Include="LetterButton.xaml.cs">
       <DependentUpon>LetterButton.xaml</DependentUpon>
     </Compile>
