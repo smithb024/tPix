@@ -2,6 +2,7 @@
 {
     using CommunityToolkit.Mvvm.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection;
+    using tPix.ViewModel;
 
     /// <summary>
     /// Factory class, used to set up dependency injection.
@@ -15,6 +16,12 @@
         {
             Ioc.Default.ConfigureServices(
                 new ServiceCollection()
+                .AddSingleton<ButtonsPaneViewModel>()
+                .AddSingleton<FiltersPaneViewModel>()
+                .AddSingleton<ImagePaneViewModel>()
+                .AddSingleton<ListPaneViewModel>()
+                .AddSingleton<SelectionPaneViewModel>()
+                .AddSingleton<MainWindowViewModel>()
                 .BuildServiceProvider());
         }
     }
