@@ -6,7 +6,89 @@
              xmlns:local="clr-namespace:tPix.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    
+    <Grid Background="AliceBlue">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" 
+               Content="{Binding Path=BasePath}"/>
+
+        <ComboBox Grid.Row="1"
+                  ItemsSource="{Binding Path=Classes}"
+                  SelectedIndex="{Binding Path=ClassesIndex}"/>
+
+        <ComboBox Grid.Row="2"
+                  ItemsSource="{Binding Path=Numbers}"
+                  SelectedIndex="{Binding Path=NumbersIndex}"/>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   Content="{Binding Path=CurrentLocation}"/>
+            <CheckBox Grid.Column="1" 
+                      Margin="0,5,0,0" 
+                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource locationConverter}}"/>
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   Content="{Binding Path=CurrentLine}"/>
+            <CheckBox Grid.Column="1" 
+                      Margin="0,5,0,0" 
+                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource LineConverter}}"/>
+        </Grid>
+
+        <Grid Grid.Row="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   Content="{Binding Path=CurrentCounty}"/>
+            <CheckBox Grid.Column="1" 
+                      Margin="0,5,0,0" 
+                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource countyConverter}}"/>
+        </Grid>
+
+        <Grid Grid.Row="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   Content="{Binding Path=CurrentRegion}"/>
+            <CheckBox Grid.Column="1" 
+                      Margin="0,5,0,0" 
+                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource regionConverter}}"/>
+        </Grid>
+
+        <Grid Grid.Row="7">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" 
+                   Content="{Binding Path=CurrentBig4}"/>
+            <CheckBox Grid.Column="1" 
+                      Margin="0,5,0,0" 
+                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource big4RegionConverter}}"/>
+        </Grid>
+
     </Grid>
 </UserControl>

@@ -7,6 +7,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel Orientation="Horizontal">
+            <ComboBox ItemsSource="{Binding Path=Locations}"
+                      SelectedIndex="{Binding Path=LocationsIndex}"
+                      MinWidth="100"/>
+            <ComboBox ItemsSource="{Binding Path=Lines}"
+                      SelectedIndex="{Binding Path=LinesIndex}"
+                      MinWidth="100"/>
+            <ComboBox ItemsSource="{Binding Path=Counties}"
+                      SelectedIndex="{Binding Path=CountiesIndex}"
+                      MinWidth="100"/>
+            <ComboBox ItemsSource="{Binding Path=Regions}"
+                      SelectedIndex="{Binding Path=RegionsIndex}"
+                      MinWidth="100"/>
+            <ComboBox ItemsSource="{Binding Path=Big4Regions}"
+                      SelectedIndex="{Binding Path=Big4RegionsIndex}"
+                      MinWidth="100"/>
+        </StackPanel>
     </Grid>
 </UserControl>

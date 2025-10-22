@@ -97,6 +97,7 @@
               Content="Config Locations"
               Command="{Binding ConfigLocationsCommand}"/>
     </Grid>
+      
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>
         <RowDefinition Height="30"/>

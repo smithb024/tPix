@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:tPix.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+
+    <Border BorderBrush="HotPink" 
+            BorderThickness="2">
+        <Image Source="{Binding Path=ImagePath}"/>
+    </Border>
 </UserControl>
