@@ -2,6 +2,7 @@
 {
     using CommunityToolkit.Mvvm.DependencyInjection;
     using Microsoft.Extensions.DependencyInjection;
+    using tPix.BL;
     using tPix.ViewModel;
 
     /// <summary>
@@ -16,6 +17,7 @@
         {
             Ioc.Default.ConfigureServices(
                 new ServiceCollection()
+                .AddSingleton<BLManager>()
                 .AddSingleton<ButtonsPaneViewModel>()
                 .AddSingleton<FiltersPaneViewModel>()
                 .AddSingleton<ImagePaneViewModel>()
