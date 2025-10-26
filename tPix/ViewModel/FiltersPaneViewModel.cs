@@ -1,9 +1,11 @@
 ﻿namespace tPix.ViewModel
 {
+    using CommunityToolkit.Mvvm.Messaging;
     using NynaeveLib.ViewModel;
     using System.Collections.ObjectModel;
     using tPix.BL;
     using tPix.Common.Enum;
+    using tPix.Common.Messages;
 
     /// <summary>
     /// View model which supports the filters pane which is present on the main window.
@@ -116,9 +118,8 @@
                 }
 
                 this.locationsIndex = value;
-                this.SelectLocationSelector(LocationType.Location, true);
                 this.OnPropertyChanged(nameof(this.LocationsIndex));
-                this.OnPropertyChanged(nameof(this.CurrentLocation));
+                this.SendMessage(LocationType.Location);
             }
         }
 
@@ -140,9 +141,8 @@
                 }
 
                 this.linesIndex = value;
-                this.SelectLocationSelector(LocationType.Line, true);
                 this.OnPropertyChanged(nameof(this.LinesIndex));
-                this.OnPropertyChanged(nameof(this.CurrentLine));
+                this.SendMessage(LocationType.Line);
             }
         }
 
@@ -161,9 +161,8 @@
                 }
 
                 this.countiesIndex = value;
-                this.SelectLocationSelector(LocationType.County, true);
                 this.OnPropertyChanged(nameof(this.CountiesIndex));
-                this.OnPropertyChanged(nameof(this.CurrentCounty));
+                this.SendMessage(LocationType.County);
             }
         }
 
@@ -182,9 +181,8 @@
                 }
 
                 this.regionsIndex = value;
-                this.SelectLocationSelector(LocationType.Region, true);
                 this.OnPropertyChanged(nameof(this.RegionsIndex));
-                this.OnPropertyChanged(nameof(this.CurrentRegion));
+                this.SendMessage(LocationType.Region);
             }
         }
 
@@ -203,10 +201,50 @@
                 }
 
                 this.big4RegionsIndex = value;
-                this.SelectLocationSelector(LocationType.Big4Location, true);
+
                 this.OnPropertyChanged(nameof(this.Big4RegionsIndex));
-                this.OnPropertyChanged(nameof(this.CurrentBig4));
+                this.SendMessage(LocationType.Big4Location);
             }
+        }
+
+        private void SendMessage(
+            LocationType type)
+        {
+            string location =
+                this.LocationsIndex >= 0 && this.LocationsIndex < this.Locations.Count
+                ? this.Locations[this.LocationsIndex]
+                : string.Empty;
+
+            string line =
+                this.LinesIndex >= 0 && this.LinesIndex < this.Lines.Count
+                ? this.Lines[this.LinesIndex]
+                : string.Empty;
+
+            string county =
+                this.CountiesIndex >= 0 && this.CountiesIndex < this.Counties.Count
+                ? this.Counties[this.CountiesIndex]
+                : string.Empty;
+
+            string region =
+                this.RegionsIndex >= 0 && this.RegionsIndex < this.Regions.Count
+                ? this.Regions[this.RegionsIndex]
+                : string.Empty;
+
+            string big4Region =
+                this.Big4RegionsIndex >= 0 && this.Big4RegionsIndex < this.Big4Regions.Count
+                ? this.Big4Regions[this.Big4RegionsIndex]
+                : string.Empty;
+
+            NewFiltersMessage message =
+                new NewFiltersMessage(
+                    type,
+                    location,
+                    line,
+                    county,
+                    region,
+                    big4Region);
+
+            this.Messenger.Send(message);
         }
     }
 }

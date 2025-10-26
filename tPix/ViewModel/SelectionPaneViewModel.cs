@@ -1,9 +1,11 @@
 ﻿namespace tPix.ViewModel
 {
+    using CommunityToolkit.Mvvm.Messaging;
     using NynaeveLib.ViewModel;
     using System.Collections.ObjectModel;
     using tPix.BL;
     using tPix.Common.Enum;
+    using tPix.Common.Messages;
 
     /// <summary>
     /// View model which supports the selection pane which is present on the main window.
@@ -44,6 +46,15 @@
         /// The type of location which can be currently selected.
         /// </summary>
         private LocationType locationSelector;
+
+        private SelectionPaneViewModel(BLManager bLManager)
+        {
+            this.bLManager = bLManager;
+
+            this.Messenger.Register<NewFiltersMessage>(
+                this,
+                (r, message) => this.FilterMessage(message));
+        }
 
         /// <summary>
         /// Gets or sets the base path which this application works from.
@@ -248,6 +259,15 @@
 
             this.GetImages();
             this.OnPropertyChanged(nameof(this.LocationSelector));
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="message"></param>
+        private void FilterMessage(NewFiltersMessage message)
+        {
+
         }
     }
 }
