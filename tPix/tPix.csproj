@@ -97,6 +97,7 @@
     <Compile Include="BL\Model\FaultManager.cs" />
     <Compile Include="Common\Enum\LocationType.cs" />
     <Compile Include="Common\ImageDescription.cs" />
+    <Compile Include="Common\Messages\DisplayImageMessage.cs" />
     <Compile Include="Common\Messages\NewFiltersMessage.cs" />
     <Compile Include="Converters\PathConverter.cs" />
     <Compile Include="Converters\LocationToBoolConverter.cs" />

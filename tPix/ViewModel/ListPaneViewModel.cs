@@ -1,9 +1,11 @@
 ﻿namespace tPix.ViewModel
 {
+    using CommunityToolkit.Mvvm.Messaging;
     using NynaeveLib.ViewModel;
     using System.Collections.ObjectModel;
     using tPix.BL;
     using tPix.Common;
+    using tPix.Common.Messages;
 
     /// <summary>
     /// View model which supports the list pane which is present on the main window.
@@ -65,8 +67,22 @@
 
                 this.imagesIndex = value;
                 this.OnPropertyChanged(nameof(this.ImagesIndex));
-                this.OnPropertyChanged(nameof(this.ImagePath));
-                this.OnPropertyChanged(nameof(this.ImageDescription));
+
+                string path =
+                    this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
+                    this.Images[this.ImagesIndex].Path :
+                    string.Empty;
+
+                string description =
+                    this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
+                    this.Images[this.ImagesIndex].Description :
+                    string.Empty;
+
+                DisplayImageMessage message =
+                            new DisplayImageMessage(
+                                path,
+                                description);
+                this.Messenger.Send(message);
             }
         }
     }
