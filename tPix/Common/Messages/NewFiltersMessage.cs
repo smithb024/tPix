@@ -35,31 +35,31 @@ namespace tPix.Common.Messages
         /// <summary>
         /// Gets the last filter to be selected.
         /// </summary>
-        private LocationType NewType { get; }
+        public LocationType NewType { get; }
 
         /// <summary>
         /// Gets the name of the currently selected region.
         /// </summary>
-        private string Location { get; }
+        public string Location { get; }
 
         /// <summary>
         /// Gets the name of the currently line region.
         /// </summary>
-        private string Line { get; }
+        public string Line { get; }
 
         /// <summary>
         /// Gets the name of the currently county region.
         /// </summary>
-        private string County { get; }
+        public string County { get; }
 
         /// <summary>
         /// Gets the name of the currently selected region.
         /// </summary>
-        private string Region { get; }
+        public string Region { get; }
 
         /// <summary>
         /// Gets the name of the currently selected big region.
         /// </summary>
-        private string Big4Region { get; }
+        public string Big4Region { get; }
     }
 }

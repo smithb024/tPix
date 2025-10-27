@@ -43,13 +43,49 @@
         private int numbersIndex;
 
         /// <summary>
+        /// The current location filter.
+        /// </summary>
+        private string currentLocation;
+
+        /// <summary>
+        /// The current line filter.
+        /// </summary>
+        private string currentLine;
+
+        /// <summary>
+        /// The current county filter.
+        /// </summary>
+        private string currentCounty;
+
+        /// <summary>
+        /// The current region filter.
+        /// </summary>
+        private string currentRegion;
+
+        /// <summary>
+        /// The current big region filter.
+        /// </summary>
+        private string currentBig4Region;
+
+
+        /// <summary>
         /// The type of location which can be currently selected.
         /// </summary>
         private LocationType locationSelector;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="SelectionPaneViewModel"/> class.
+        /// </summary>
+        /// <param name="bLManager">The BL Manager</param>
         private SelectionPaneViewModel(BLManager bLManager)
         {
             this.bLManager = bLManager;
+
+            this.currentLocation = string.Empty; 
+            this.currentLine = string.Empty;
+            this.currentCounty = string.Empty;
+            this.currentRegion = string.Empty;
+            this.currentBig4Region = string.Empty;
 
             this.Messenger.Register<NewFiltersMessage>(
                 this,
@@ -133,83 +169,48 @@
         }
 
         /// <summary>
-        /// Gets the current location.
+        /// Gets or sets the current location.
         /// </summary>
         public string CurrentLocation
         {
-            get
-            {
-                if (this.LocationsIndex >= 0 && this.LocationsIndex < this.Locations.Count)
-                {
-                    return this.Locations[this.LocationsIndex];
-                }
-
-                return string.Empty;
-            }
+            get => this.currentLocation;
+            set => this.SetProperty(ref this.currentLocation, value);
         }
 
         /// <summary>
-        /// Gets the current line.
+        /// Gets or sets the current line.
         /// </summary>
         public string CurrentLine
         {
-            get
-            {
-                if (this.LinesIndex >= 0 && this.LinesIndex < this.Lines.Count)
-                {
-                    return this.Lines[this.LinesIndex];
-                }
-
-                return string.Empty;
-            }
+            get => this.currentLine;
+            set => this.SetProperty(ref this.currentLine, value);
         }
 
         /// <summary>
-        /// Gets the current county.
+        /// Gets or sets the current county.
         /// </summary>
         public string CurrentCounty
         {
-            get
-            {
-                if (this.CountiesIndex >= 0 && this.CountiesIndex < this.Lines.Count)
-                {
-                    return this.Counties[this.CountiesIndex];
-                }
-
-                return string.Empty;
-            }
+            get => this.currentCounty;
+            set => this.SetProperty(ref this.currentCounty, value);
         }
 
         /// <summary>
-        /// Gets the current region.
+        /// Gets or sets the current region.
         /// </summary>
         public string CurrentRegion
         {
-            get
-            {
-                if (this.RegionsIndex >= 0 && this.RegionsIndex < this.Regions.Count)
-                {
-                    return this.Regions[this.RegionsIndex];
-                }
-
-                return string.Empty;
-            }
+            get => this.currentRegion;
+            set => this.SetProperty(ref this.currentRegion, value);
         }
 
         /// <summary>
-        /// Gets the current big region.
+        /// Gets or sets the current big region.
         /// </summary>
         public string CurrentBig4
         {
-            get
-            {
-                if (this.Big4RegionsIndex >= 0 && this.Big4RegionsIndex < this.Big4Regions.Count)
-                {
-                    return this.Big4Regions[this.Big4RegionsIndex];
-                }
-
-                return string.Empty;
-            }
+            get => this.currentBig4Region;
+            set => this.SetProperty(ref this.currentBig4Region, value);
         }
 
         /// <summary>
@@ -262,11 +263,17 @@
         }
 
         /// <summary>
-        /// 
+        /// A new <see cref="NewFiltersMessage"/> has been received.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">The <see cref="NewFiltersMessage"/> message</param>
         private void FilterMessage(NewFiltersMessage message)
         {
+            this.CurrentLocation = message.Location;
+            this.CurrentLine = message.Line;
+            this.CurrentCounty = message.County;
+            this.CurrentRegion = message.Region;
+            this.CurrentBig4 = message.Big4Region;
+            this.SelectLocationSelector(message.NewType, true);
 
         }
     }
