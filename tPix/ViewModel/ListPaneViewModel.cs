@@ -3,6 +3,7 @@
     using CommunityToolkit.Mvvm.Messaging;
     using NynaeveLib.ViewModel;
     using System.Collections.ObjectModel;
+    using System.Windows.Media;
     using tPix.BL;
     using tPix.Common;
     using tPix.Common.Enum;
@@ -19,17 +20,81 @@
         private readonly BLManager blManager;
 
         /// <summary>
+        /// The currently selected class.
+        /// </summary>
+        private string selectedClass;
+
+        /// <summary>
+        /// The currently selected number.
+        /// </summary>
+        private string selectedNumber;
+
+        /// <summary>
+        /// Indicates whether to use the filter.
+        /// </summary>
+        private bool useFilter;
+
+        /// <summary>
+        /// The type of filter to use.
+        /// </summary>
+        private LocationType locationType;
+
+        /// <summary>
+        /// The current location filter.
+        /// </summary>
+        private string location;
+
+        /// <summary>
+        /// The current line filter.
+        /// </summary>
+        private string line;
+
+        /// <summary>
+        /// The current county filter.
+        /// </summary>
+        private string county;
+
+        /// <summary>
+        /// The current region filter.
+        /// </summary>
+        private string region;
+
+        /// <summary>
+        /// The current big region filter.
+        /// </summary>
+        private string big4Region;
+
+        /// <summary>
         /// Initialsies a new instance of the <see cref="ListPaneViewModel"/> class.
         /// </summary>
         /// <param name="blManager">The instance of the <see cref="BLManager"/>.</param>
         public ListPaneViewModel(BLManager blManager)
         {
             this.blManager = blManager;
+            this.selectedClass = string.Empty;
+            this.selectedNumber = string.Empty;
+            this.useFilter = false;
+            this.locationType = LocationType.None;
+            this.location = string.Empty;
+            this.line = string.Empty;
+            this.county = string.Empty;
+            this.region = string.Empty;
+            this.big4Region = string.Empty;
+
             this.images =
                 new ObservableCollection<ImageDescription>
                 {
                     this.blManager.GetImage()
                 };
+
+
+            this.Messenger.Register<NewFiltersMessage>(
+                this,
+                (r, message) => this.FilterMessage(message));
+
+            this.Messenger.Register<GenerateImageListMessage>(
+                this,
+                (r, message) => this.GenerateImageListMessage(message));
         }
 
         /// <summary>
@@ -69,100 +134,148 @@
                 this.imagesIndex = value;
                 this.OnPropertyChanged(nameof(this.ImagesIndex));
 
-                string path =
-                    this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
-                    this.Images[this.ImagesIndex].Path :
-                    string.Empty;
-
-                string description =
-                    this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
-                    this.Images[this.ImagesIndex].Description :
-                    string.Empty;
-
-                DisplayImageMessage message =
-                            new DisplayImageMessage(
-                                path,
-                                description);
-                this.Messenger.Send(message);
+                this.SendDisplayStringMessage();
             }
         }
 
         private void GetImages()
         {
-            if (this.ClassesIndex < 1)
+            if (!string.IsNullOrEmpty(this.selectedNumber))
             {
-                this.images =
-                  this.BLL.GetImages(
-                    this.LocationSelector,
-                    this.CurrentLocationSelector);
-            }
-            else
-            {
-                string clsName =
-                  this.ClassesIndex >= 0 && this.ClassesIndex < this.Classes.Count ?
-                      this.Classes[this.ClassesIndex] :
-                      string.Empty;
-
-                if (this.NumbersIndex < 1)
+                if (this.useFilter)
                 {
-                    if (this.LocationSelector == LocationType.None)
-                    {
-                        this.images =
-                          this.BLL.GetImages(
-                            clsName);
-                    }
-                    else
-                    {
-                        this.images =
-                          this.BLL.GetImages(
-                            clsName,
-                            this.LocationSelector,
-                            this.CurrentLocationSelector);
-                    }
+                    this.images =
+                        this.blManager.GetImages(
+                            this.selectedClass,
+                            this.selectedNumber,
+                            this.locationType,
+                            this.GetFilterString());
                 }
                 else
                 {
-                    string nmb =
-                      this.NumbersIndex >= 0 && this.NumbersIndex < this.Numbers.Count ?
-                          this.Numbers[this.NumbersIndex] :
-                          string.Empty;
-
-                    if (this.LocationSelector == LocationType.None)
-                    {
-                        this.images =
-                          this.BLL.GetImages(
-                            clsName,
-                            nmb);
-                    }
-                    else
-                    {
-                        this.images =
-                          this.BLL.GetImages(
-                            clsName,
-                            nmb,
-                            this.LocationSelector,
-                            this.CurrentLocationSelector);
-                    }
+                    this.images =
+                        this.blManager.GetImages(
+                            this.selectedClass,
+                            this.selectedNumber);
                 }
             }
-
-            if (this.Images == null || this.Images.Count == 0)
+            else if (!string.IsNullOrEmpty(this.selectedClass))
+            {
+                if (this.useFilter)
+                {
+                    this.images =
+                        this.blManager.GetImages(
+                            this.selectedClass,
+                            this.locationType,
+                            this.GetFilterString());
+                }
+                else
+                {
+                    this.images =
+                        this.blManager.GetImages(
+                            this.selectedClass);
+                }
+            }
+            else if (this.useFilter)
             {
                 this.images =
-                new ObservableCollection<ImageDescription>
-                {
-                    this.BLL.GetImage()
-                };
+                    this.blManager.GetImages(
+                        this.locationType,
+                        this.GetFilterString());
             }
-
+            else
+            {
+                this.images =
+                    new ObservableCollection<ImageDescription>
+                    {
+                        this.blManager.GetImage()
+                    };
+            }
 
             this.OnPropertyChanged(nameof(this.Images));
 
             this.imagesIndex = 0;
-
             this.OnPropertyChanged(nameof(this.ImagesIndex));
-            this.OnPropertyChanged(nameof(this.ImagePath));
-            this.OnPropertyChanged(nameof(this.ImageDescription));
+
+            this.SendDisplayStringMessage();
+        }
+
+        /// <summary>
+        /// A new <see cref="NewFiltersMessage"/> has been received.
+        /// </summary>
+        /// <param name="message">The <see cref="NewFiltersMessage"/> message</param>
+        private void FilterMessage(NewFiltersMessage message)
+        {
+            this.location = message.Location;
+            this.line = message.Line;
+            this.county = message.County;
+            this.region = message.Region;
+            this.big4Region = message.Big4Region;
+
+            this.GetImages();
+        }
+
+        /// <summary>
+        /// A new <see cref="GenerateImageListMessage"/> has been received.
+        /// </summary>
+        /// <param name="message">The <see cref="GenerateImageListMessage"/> message</param>
+        private void GenerateImageListMessage(GenerateImageListMessage message)
+        {
+            this.selectedClass = message.Cls;
+            this.selectedNumber = message.Nmb;
+            this.useFilter = message.UseFilter;
+            this.locationType = message.Filter;
+
+            this.GetImages();
+        }
+
+        /// <summary>
+        /// Determine which string to use for the filter.
+        /// </summary>
+        /// <returns>The selected string</returns>
+        private string GetFilterString()
+        {
+            switch (this.locationType)
+            {
+                case LocationType.Location:
+                    return this.location;
+
+                case LocationType.Line:
+                    return this.line;
+
+                case LocationType.County:
+                    return this.county;
+
+                case LocationType.Region:
+                    return this.region;
+
+                case LocationType.Big4Location:
+                    return this.big4Region;
+
+                default:
+                    return string.Empty;
+            }
+        }
+
+        /// <summary>
+        /// Create and send a <see cref="DisplayImageMessage"/> via the messenger.
+        /// </summary>
+        private void SendDisplayStringMessage()
+        {
+            string path =
+                this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
+                this.Images[this.ImagesIndex].Path :
+                string.Empty;
+
+            string description =
+                this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
+                this.Images[this.ImagesIndex].Description :
+                string.Empty;
+            DisplayImageMessage message =
+                           new DisplayImageMessage(
+                               path,
+                               description);
+            this.Messenger.Send(message);
         }
     }
 }

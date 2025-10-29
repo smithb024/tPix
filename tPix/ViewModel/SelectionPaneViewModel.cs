@@ -369,7 +369,6 @@
             this.CurrentCounty = message.County;
             this.CurrentRegion = message.Region;
             this.CurrentBig4 = message.Big4Region;
-
         }
 
         /// <summary>
