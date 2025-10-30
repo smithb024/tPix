@@ -1,6 +1,5 @@
 ﻿namespace tPix.ViewModel
 {
-    using NynaeveLib.DialogService;
     using NynaeveLib.ViewModel;
     using System.Windows.Input;
     using tPix.ViewModel.Cmd;
@@ -18,7 +17,6 @@
             this.ConfigLocationsCommand = 
                 new UpdateLocationCmd(
                     this.ShowConfigLocationsWindow);
-
         }
 
         /// <summary>

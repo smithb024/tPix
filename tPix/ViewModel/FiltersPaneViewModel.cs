@@ -76,6 +76,17 @@
             BLManager bLManager) 
         {
             this.bLManager = bLManager;
+            this.locations = this.bLManager.GetLocations();
+            this.lines = this.bLManager.GetLines();
+            this.counties = this.bLManager.GetCounties();
+            this.regions = this.bLManager.GetRegions();
+            this.big4Regions = this.bLManager.GetBig4Regions();
+
+            this.locations.Insert(0, string.Empty);
+            this.lines.Insert(0, string.Empty);
+            this.counties.Insert(0, string.Empty);
+            this.regions.Insert(0, string.Empty);
+            this.big4Regions.Insert(0, string.Empty);
         }
 
         /// <summary>

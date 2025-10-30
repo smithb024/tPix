@@ -39,7 +39,7 @@
                    Content="{Binding Path=CurrentLocation}"/>
             <CheckBox Grid.Column="1" 
                       Margin="0,5,0,0" 
-                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource locationConverter}}"/>
+                      IsChecked="{Binding Path=CurrentLocationChecked}"/>
         </Grid>
 
         <Grid Grid.Row="4">
@@ -51,7 +51,7 @@
                    Content="{Binding Path=CurrentLine}"/>
             <CheckBox Grid.Column="1" 
                       Margin="0,5,0,0" 
-                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource LineConverter}}"/>
+                      IsChecked="{Binding Path=CurrentLineChecked}"/>
         </Grid>
 
         <Grid Grid.Row="5">
@@ -63,7 +63,7 @@
                    Content="{Binding Path=CurrentCounty}"/>
             <CheckBox Grid.Column="1" 
                       Margin="0,5,0,0" 
-                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource countyConverter}}"/>
+                      IsChecked="{Binding Path=CurrentCountyChecked}"/>
         </Grid>
 
         <Grid Grid.Row="6">
@@ -75,7 +75,7 @@
                    Content="{Binding Path=CurrentRegion}"/>
             <CheckBox Grid.Column="1" 
                       Margin="0,5,0,0" 
-                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource regionConverter}}"/>
+                      IsChecked="{Binding Path=CurrentRegionChecked}"/>
         </Grid>
 
         <Grid Grid.Row="7">
@@ -87,7 +87,7 @@
                    Content="{Binding Path=CurrentBig4}"/>
             <CheckBox Grid.Column="1" 
                       Margin="0,5,0,0" 
-                      IsChecked="{Binding Path=LocationSelector, Converter={StaticResource big4RegionConverter}}"/>
+                      IsChecked="{Binding Path=CurrentBig4RegionChecked}"/>
         </Grid>
 
     </Grid>

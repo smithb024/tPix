@@ -42,7 +42,7 @@
             this.basePath = this.BLL.BasePath;
             this.locationSelector = LocationType.None;
 
-            this.ConfigLocationsCommand = new UpdateLocationCmd(this, ShowConfigLocationsWindow);
+ //           this.ConfigLocationsCommand = new UpdateLocationCmd(this, ShowConfigLocationsWindow);
 
             this.classes = this.BLL.GetClasses();
             this.locations = this.BLL.GetLocations();

@@ -96,10 +96,12 @@
         /// Initialises a new instance of the <see cref="SelectionPaneViewModel"/> class.
         /// </summary>
         /// <param name="bLManager">The BL Manager</param>
-        private SelectionPaneViewModel(BLManager bLManager)
+        public SelectionPaneViewModel(BLManager bLManager)
         {
             this.bLManager = bLManager;
 
+            this.classes = this.bLManager.GetClasses();
+            this.classes.Insert(0, string.Empty);
             this.currentLocation = string.Empty; 
             this.currentLine = string.Empty;
             this.currentCounty = string.Empty;
