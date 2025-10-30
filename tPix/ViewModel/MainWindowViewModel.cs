@@ -49,6 +49,15 @@
                 this,
                 (r, message) => this.DisplayImage(message));
 
+            GenerateImageListMessage imageListMessage =
+                new GenerateImageListMessage(
+                    string.Empty,
+                    string.Empty,
+                    false,
+                    LocationType.None);
+
+            this.Messenger.Send(imageListMessage);
+
             this.BLL = new BLManager();
 
             this.basePath = this.BLL.BasePath;

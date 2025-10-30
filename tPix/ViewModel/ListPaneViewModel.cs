@@ -3,7 +3,6 @@
     using CommunityToolkit.Mvvm.Messaging;
     using NynaeveLib.ViewModel;
     using System.Collections.ObjectModel;
-    using System.Windows.Media;
     using tPix.BL;
     using tPix.Common;
     using tPix.Common.Enum;
@@ -86,7 +85,7 @@
                 {
                     this.blManager.GetImage()
                 };
-
+            this.imagesIndex = 0;
 
             this.Messenger.Register<NewFiltersMessage>(
                 this,
@@ -95,6 +94,8 @@
             this.Messenger.Register<GenerateImageListMessage>(
                 this,
                 (r, message) => this.GenerateImageListMessage(message));
+
+            this.SendDisplayStringMessage();
         }
 
         /// <summary>

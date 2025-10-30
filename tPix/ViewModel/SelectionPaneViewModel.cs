@@ -418,6 +418,11 @@
         /// <returns>Validity flag</returns>
         private bool IsNmbValid()
         {
+            if (this.Numbers == null)
+            {
+                return false;
+            }
+
             return this.NumbersIndex >= 0 && this.NumbersIndex < this.Numbers.Count;
         }
 
