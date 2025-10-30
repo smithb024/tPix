@@ -30,7 +30,6 @@
             this.Messenger.Register<DisplayImageMessage>(
                 this,
                 (r, message) => this.DisplayImage(message));
-
         }
 
         /// <summary>

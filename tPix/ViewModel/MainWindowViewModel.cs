@@ -1,16 +1,22 @@
 ﻿namespace tPix.ViewModel
 {
+    using Common.Enum;
+    using CommunityToolkit.Mvvm.Messaging;
+    using NynaeveLib.DialogService;
+    using NynaeveLib.ViewModel;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
-    using Common.Enum;
-    using NynaeveLib.ViewModel;
-    using NynaeveLib.DialogService;
     using tPix.BL;
     using tPix.Common;
+    using tPix.Common.Messages;
     using ViewModel.Cmd;
 
     public class MainWindowViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The description of the currently selected image.
+        /// </summary>
+        private string imageDescription;
         BLManager BLL;
 
         private string basePath;
@@ -37,6 +43,12 @@
 
         public MainWindowViewModel()
         {
+            this.imageDescription = string.Empty;
+
+            this.Messenger.Register<DisplayImageMessage>(
+                this,
+                (r, message) => this.DisplayImage(message));
+
             this.BLL = new BLManager();
 
             this.basePath = this.BLL.BasePath;
@@ -143,10 +155,14 @@
           this.Images[this.ImagesIndex].Path :
           string.Empty;
 
-        public string ImageDescription =>
-          this.ImagesIndex >= 0 && this.ImagesIndex < this.Images.Count ?
-          this.Images[this.ImagesIndex].Description :
-          string.Empty;
+        /// <summary>
+        /// Gets or sets the description of the currently selected image.
+        /// </summary>
+        public string ImageDescription
+        {
+            get => this.imageDescription;
+            set => this.SetProperty(ref this.imageDescription, value);
+        }
 
         public int ClassesIndex
         {
@@ -529,6 +545,17 @@
               {
                   DataContext = locationUpdateViewModel
               });
+        }
+
+        /// <summary>
+        /// Handle a display image message. Update the properties.
+        /// </summary>
+        /// <param name="message">
+        /// The message which has been received via the messenger service.
+        /// </param>
+        private void DisplayImage(DisplayImageMessage message)
+        {
+            this.ImageDescription = message.Description;
         }
     }
 }
