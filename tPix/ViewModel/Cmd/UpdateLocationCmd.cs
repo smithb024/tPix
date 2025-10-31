@@ -1,47 +1,51 @@
 ﻿namespace tPix.ViewModel.Cmd
 {
-  using System;
-  using System.Windows.Input;
+    using System;
+    using System.Windows.Input;
 
-  //TODO, why isn't this generic?
-  public class UpdateLocationCmd : ICommand
-  {
-    private MainWindowViewModel viewModel = null;
-
-    /// <summary>
-    /// Creates a new instance of the <see cref="ConfigFormCmd"/> class
-    /// </summary>
-    /// <param name="viewModel">view model</param>
-    public UpdateLocationCmd(MainWindowViewModel viewModel, Action command)
+    //TODO, why isn't this generic?
+    public class UpdateLocationCmd : ICommand
     {
-      this.viewModel = viewModel;
-      RunCommand = command;
-    }
+        /// <summary>
+        /// Creates a new instance of the <see cref="ConfigFormCmd"/> class
+        /// </summary>
+        /// <param name="command">The method to run</param>
+        public UpdateLocationCmd(Action command)
+        {
+            this.RunCommand = command;
+        }
 
-    public Action RunCommand
-    {
-      get;
-      private set;
-    }
+        /// <summary>
+        /// Gets an <see cref="Action"/> to run.
+        /// </summary>
+        public Action RunCommand { get; private set; }
 
-    public bool CanExecute(object parameter)
-    {
-      return true;
-    }
+        /// <summary>
+        /// Indicates whether the command can be run.
+        /// </summary>
+        /// <param name="parameter">Not used</param>
+        /// <returns>Indicates whether the command can be run</returns>
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
 
-    public event EventHandler CanExecuteChanged
-    {
-      add { CommandManager.RequerySuggested += value; }
-      remove { CommandManager.RequerySuggested -= value; }
-    }
+        /// <summary>
+        /// TODO, to be implemented.
+        /// </summary>
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
-    /// <summary>
-    /// Run the provided command
-    /// </summary>
-    /// <param name="parameter">unused parameter</param>
-    public void Execute(object parameter)
-    {
-      RunCommand();
+        /// <summary>
+        /// Run the provided command
+        /// </summary>
+        /// <param name="parameter">unused parameter</param>
+        public void Execute(object parameter)
+        {
+            this.RunCommand();
+        }
     }
-  }
 }
