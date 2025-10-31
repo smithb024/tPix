@@ -1,8 +1,8 @@
 ﻿namespace tPix.ViewModel
 {
+    using NynaeveLib.ViewModel;
     using System;
     using System.Collections.ObjectModel;
-    using NynaeveLib.ViewModel;
     using tPix.BL.Interfaces;
 
     public class LocationConfiguratorViewModel : ViewModelBase
@@ -32,10 +32,29 @@
 
         public string LocationName => this.location.Name;
 
-        public ObservableCollection<string> LineCollection => this.lines;
-        public ObservableCollection<string> CountyCollection => this.counties;
-        public ObservableCollection<string> RegionCollection => this.regions;
-        public ObservableCollection<string> Big4Collection => this.big4Regions;
+        public ObservableCollection<string> LineCollection
+        {
+            get => this.lines;
+            set => this.SetProperty(ref this.lines, value);
+        }
+
+        public ObservableCollection<string> CountyCollection
+        {
+            get => this.counties;
+            set => this.SetProperty(ref this.counties, value);
+        }
+
+        public ObservableCollection<string> RegionCollection 
+        {
+            get => this.regions;
+            set => this.SetProperty(ref this.regions, value);
+        }
+
+        public ObservableCollection<string> Big4Collection
+        {
+            get => this.big4Regions;
+            set => this.SetProperty(ref this.big4Regions, value);
+        }
 
         public int LinesIndex
         {
@@ -49,7 +68,7 @@
                 return 0;
             }
 
-            private set
+            set
             {
                 if (value == 0)
                 {
@@ -77,7 +96,7 @@
                 return 0;
             }
 
-            private set
+            set
             {
                 if (value == 0)
                 {
@@ -105,7 +124,7 @@
                 return 0;
             }
 
-            private set
+            set
             {
                 if (value == 0)
                 {
@@ -133,7 +152,7 @@
                 return 0;
             }
 
-            private set
+            set
             {
                 if (value == 0)
                 {

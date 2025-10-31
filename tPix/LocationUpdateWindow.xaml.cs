@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace tPix
+﻿namespace tPix
 {
-  /// <summary>
-  /// Interaction logic for LocationUpdateWindow.xaml
-  /// </summary>
-  public partial class LocationUpdateWindow : Window
-  {
-    public LocationUpdateWindow()
+    using System.Windows;
+
+    /// <summary>
+    /// Interaction logic for LocationUpdateWindow.xaml
+    /// </summary>
+    public partial class LocationUpdateWindow : Window
     {
-      InitializeComponent();
+        /// <summary>
+        /// Initialises a new instance of the <see cref="LocationUpdateWindow"/> class.
+        /// </summary>
+        public LocationUpdateWindow()
+        {
+            this.InitializeComponent();
+        }
     }
-  }
 }

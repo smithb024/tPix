@@ -1,7 +1,9 @@
 ﻿namespace tPix.ViewModel
 {
+    using NynaeveLib.DialogService;
     using NynaeveLib.ViewModel;
     using System.Windows.Input;
+    using tPix.BL;
     using tPix.ViewModel.Cmd;
 
     /// <summary>
@@ -10,10 +12,18 @@
     public class ButtonsPaneViewModel : ViewModelBase
     {
         /// <summary>
+        /// The instance of the <see cref="BLManager"/>.
+        /// </summary>
+        private readonly BLManager bLManager;
+
+        /// <summary>
         /// Initialises a new instance of the <see cref="ButtonsPaneViewModel"/> class.
         /// </summary>
-        public ButtonsPaneViewModel() 
+        /// <param name="bLManager">The instance of the <see cref="BLManager"/></param>
+        public ButtonsPaneViewModel(
+            BLManager bLManager) 
         {
+            this.bLManager = bLManager;
             this.ConfigLocationsCommand = 
                 new UpdateLocationCmd(
                     this.ShowConfigLocationsWindow);
@@ -31,22 +41,22 @@
         {
             // TODO, prior to any changes, this code crashed when opening the dialog.
 
-            ////LocationUpdateWindowViewModel locationUpdateViewModel =
-            ////  new LocationUpdateWindowViewModel(
-            ////    this.BLL.GetLocationsByLetter,
-            ////    this.BLL.SaveLocation,
-            ////    this.Lines,
-            ////    this.Counties,
-            ////    this.Regions,
-            ////    this.Big4Regions);
+            LocationUpdateWindowViewModel locationUpdateViewModel =
+              new LocationUpdateWindowViewModel(
+                this.bLManager.GetLocationsByLetter,
+                this.bLManager.SaveLocation,
+                this.bLManager.GetLines(),
+                this.bLManager.GetCounties(),
+                this.bLManager.GetRegions(),
+                this.bLManager.GetBig4Regions());
 
-            ////DialogService service = new DialogService();
+            DialogService service = new DialogService();
 
-            ////service.ShowDialog(
-            ////  new LocationUpdateWindow()
-            ////  {
-            ////      DataContext = locationUpdateViewModel
-            ////  });
+            service.ShowDialog(
+              new LocationUpdateWindow()
+              {
+                  DataContext = locationUpdateViewModel
+              });
         }
     }
 }
