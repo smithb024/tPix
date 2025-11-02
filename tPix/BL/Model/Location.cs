@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 namespace tPix.BL.Model
 {
   using Interfaces;
+    using Newtonsoft.Json;
 
   public class Location : ILocation
   {
-    public Location(
+        [JsonConstructor]
+        public Location(
       string name,
       int? line,
       int? county,

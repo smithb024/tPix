@@ -1,10 +1,17 @@
 ﻿namespace tPix.ViewModel
 {
+    using NynaeveLib.Commands;
+    using NynaeveLib.ViewModel;
     using System;
     using System.Collections.ObjectModel;
-    using NynaeveLib.ViewModel;
+    using System.Windows.Input;
     using tPix.BL.Interfaces;
+    using tPix.BL.Model;
+    using tPix.ViewModel.Cmd;
 
+    /// <summary>
+    /// View model which supports the Location Configuration dialog.
+    /// </summary>
     public class LocationUpdateWindowViewModel : ViewModelBase
     {
         private Func<string, ObservableCollection<ILocation>> getLocations;
@@ -18,6 +25,15 @@
         private ObservableCollection<string> big4Regions;
         private Action<ILocation> saveLocation;
 
+        /// <summary>
+        /// Initialises a new instance of the <see cref="LocationUpdateWindowViewModel"/> class.
+        /// </summary>
+        /// <param name="getLocations"></param>
+        /// <param name="saveLocation"></param>
+        /// <param name="lines"></param>
+        /// <param name="counties"></param>
+        /// <param name="regions"></param>
+        /// <param name="big4Regions"></param>
         public LocationUpdateWindowViewModel(
           Func<string, ObservableCollection<ILocation>> getLocations,
           Action<ILocation> saveLocation,
@@ -65,10 +81,19 @@
                     new LetterButtonViewModel("Y", this.SetLocations),
                     new LetterButtonViewModel("Z", this.SetLocations)
             };
+
+            this.SaveCommand =
+                new CommonCommand(
+                    this.Save);
         }
 
         public ObservableCollection<LocationConfiguratorViewModel> Locations => this.locationViewModels;
         public ObservableCollection<LetterButtonViewModel> Buttons => this.letterButtonViewModels;
+
+        /// <summary>
+        /// Gets a command which is used to save the current setting.
+        /// </summary>
+        public ICommand SaveCommand { get; private set; }
 
         private void SetLocations(string letter)
         {
@@ -91,6 +116,55 @@
             }
 
             this.OnPropertyChanged(nameof(this.Locations));
+        }
+
+        /// <summary>
+        /// Save the current location details.
+        /// </summary>
+        private void Save()
+        {
+            ILocation test =
+                new Location(
+                    "TestLocation",
+                    3,
+                    6,
+                    null,
+                    7);
+            ILocation test2 =
+                new Location(
+                    "Two",
+                    1,
+                    2,
+                    6,
+                    7);
+            ILocation test3 =
+                new Location(
+                    "Three",
+                    null,
+                    3,
+                    9,
+                    33);
+            ILocationCollection locations = new LocationCollection();
+            locations.Locations.Add(test);
+            locations.Locations.Add(test2);
+            locations.Locations.Add(test3);
+
+            NynaeveLib.Json.JsonFileIo.WriteJson(locations, "C:\\tp\\test.json");
+
+            LocationCollection read;
+
+            try
+            {
+                read = NynaeveLib.Json.JsonFileIo.ReadJson<LocationCollection>("C:\\tp\\test.json");
+            }
+            catch (Exception ex) 
+            {
+                int i = 0;
+                ++i;
+            }
+
+            int j = 2;
+            ++j;
         }
     }
 }

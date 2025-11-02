@@ -6,39 +6,43 @@
         xmlns:local="clr-namespace:tPix"
         mc:Ignorable="d"
         Title="LocationUpdateWindow" >
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="30"/>
-      <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <ItemsControl x:Name="tStack" Grid.Row="0" ItemsSource="{Binding Buttons}">
-      <ItemsControl.ItemsPanel>
-        <ItemsPanelTemplate>
-          <StackPanel Orientation="Horizontal"/>
-        </ItemsPanelTemplate>
-      </ItemsControl.ItemsPanel>
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <local:LetterButton />
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
-    <Grid Grid.Row="1" x:Name="LocationsGrid">
-      <Border BorderBrush="BlueViolet" BorderThickness="5">
-        <ScrollViewer>
-          <ListBox ItemsSource="{Binding Locations}"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ItemsControl x:Name="tStack" Grid.Row="0" ItemsSource="{Binding Buttons}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <local:LetterButton />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <Grid Grid.Row="1" x:Name="LocationsGrid">
+            <Border BorderBrush="BlueViolet" BorderThickness="5">
+                <ScrollViewer>
+                    <ListBox ItemsSource="{Binding Locations}"
              HorizontalContentAlignment="Stretch"
              Margin="0"
              VerticalAlignment="Top"
              Background="Transparent">
-            <ListBox.ItemTemplate>
-              <DataTemplate>
-                <local:LocationConfigurator/>
-              </DataTemplate>
-            </ListBox.ItemTemplate>
-          </ListBox>
-        </ScrollViewer>
-      </Border>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <local:LocationConfigurator/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <Button Grid.Row="2"
+                Content="Save"
+                Command="{Binding Path=SaveCommand}"/>
     </Grid>
-  </Grid>
 </Window>
