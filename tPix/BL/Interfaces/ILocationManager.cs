@@ -1,31 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tPix.BL.Interfaces
+﻿namespace tPix.BL.Interfaces
 {
-  public interface ILocationManager
-  {
-    List<ILocation> Locations { get; }
+    using System.Collections.Generic;
 
-    List<string> LocationsByName { get; }
+    /// <summary>
+    /// Interface for a class which manages the locations.
+    /// </summary>
+    public interface ILocationManager
+    {
+        /// <summary>
+        /// Gets an object which contains the collection of all location objects.
+        /// </summary>
+        ILocationCollection Locations { get; }
 
-    List<string> Lines { get; }
+        /// <summary>
+        /// Gets a collection of the names of all locations.
+        /// </summary>
+        List<string> LocationsByName { get; }
 
-    List<string> Regions { get; }
+        /// <summary>
+        /// Gets a collection of all known lines.
+        /// </summary>
+        List<string> Lines { get; }
 
-    List<string> Counties { get; }
+        /// <summary>
+        /// Gets a collection of all known regions.
+        /// </summary>
+        List<string> Regions { get; }
 
-    List<string> Big4Regions { get; }
+        /// <summary>
+        /// Gets  a collection of all known counties.
+        /// </summary>
+        List<string> Counties { get; }
 
-    void UpdateLocation(ILocation updatedStn);
+        /// <summary>
+        /// Gets a collection of all known big regions.
+        /// </summary>
+        List<string> Big4Regions { get; }
 
-    List<ILocation> GetLocationsByLetter(string character);
+        /// <summary>
+        /// Update a location.
+        /// </summary>
+        /// <param name="updatedLocation">The location to update</param>
+        void UpdateLocation(ILocation updatedLocation);
 
-    ILocation GetStn(string name);
+        /// <summary>
+        /// Determine and return a collection of all locations starting with the 
+        /// <paramref name="character"/>.
+        /// </summary>
+        /// <param name="character">The search parameter</param>
+        /// <returns>The collection of locations</returns>
+        List<ILocation> GetLocationsByLetter(string character);
 
-    void Save();
-  }
+        /// <summary>
+        /// Find a location with a given name.
+        /// </summary>
+        /// <param name="name">The search parameter</param>
+        /// <returns>The found location.</returns>
+        ILocation GetLocation(string name);
+
+        /// <summary>
+        /// Save the locations.
+        /// </summary>
+        void Save();
+    }
 }
