@@ -62,5 +62,10 @@
         /// Save the locations.
         /// </summary>
         void Save();
+
+        /// <summary>
+        /// Check for any new locations.
+        /// </summary>
+        void Check();
     }
 }

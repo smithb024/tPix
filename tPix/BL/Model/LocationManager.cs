@@ -1,11 +1,12 @@
 ﻿namespace tPix.BL.Model
 {
+    using Factories;
+    using Interfaces;
+    using Interfaces.Factories;
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Interfaces;
-    using Interfaces.Factories;
-    using Factories;
 
     /// <summary>
     /// A class which manages the model locations.
@@ -55,13 +56,24 @@
               this.ReadListFileContents(
                 this.locationBasePath + Path.DirectorySeparatorChar + "Region.txt");
 
-            this.Locations = this.locationFactory.ReadLocations(
-              this.locationBasePath + Path.DirectorySeparatorChar + "Location.txt",
-              faultManager,
-              this.Lines,
-              this.Counties,
-              this.Regions,
-              this.Big4Regions);
+            if (File.Exists(this.locationBasePath + Path.DirectorySeparatorChar + "Location.json"))
+            {
+                try
+                {
+                    this.Locations =
+                        NynaeveLib.Json.JsonFileIo.ReadJson<LocationCollection>(
+                            this.locationBasePath + Path.DirectorySeparatorChar + "Location.json");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    this.Locations = new LocationCollection();
+                }
+            }
+            else
+            {
+                this.Locations = new LocationCollection();
+            }
         }
 
         /// <summary>
@@ -110,7 +122,7 @@
         /// Find a location with a given name.
         /// </summary>
         /// <remarks>
-        /// If a location can't be found a new one is created and that one is returned.
+        /// If a location can't be found, an unknown location is returned.
         /// </remarks>
         /// <param name="name">The search parameter</param>
         /// <returns>The found location.</returns>
@@ -124,18 +136,21 @@
                 return returnValue;
             }
 
-            ILocation newLocation = new Location(name);
+            ILocation unknownLocation = new Location("unknown");
+            return unknownLocation;
 
-            this.Locations.Locations.Add(newLocation);
-            //this.Locations.OrderBy(i => i.Name);
-            //this.Locations.Sort();
-            this.Locations.Locations =
-                new List<ILocation>(
-                    from i in this.Locations.Locations orderby i.Name select i);
+            //ILocation newLocation = new Location(name);
+
+            //this.Locations.Locations.Add(newLocation);
+            ////this.Locations.OrderBy(i => i.Name);
+            ////this.Locations.Sort();
+            //this.Locations.Locations =
+            //    new List<ILocation>(
+            //        from i in this.Locations.Locations orderby i.Name select i);
 
 
-            this.needsSaving = true;
-            return newLocation;
+            //this.needsSaving = true;
+            //return newLocation;
         }
 
         /// <summary>
@@ -172,6 +187,14 @@
 
                 this.needsSaving = false;
             }
+        }
+
+        /// <summary>
+        /// Check for any new locations.
+        /// </summary>
+        public void Check()
+        {
+
         }
 
         /// <summary>
