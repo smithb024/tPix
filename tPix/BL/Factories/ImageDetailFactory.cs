@@ -95,36 +95,37 @@
 
                 string[] nmbsArray = inputArray[0].Split(minorTick);
 
-                ILocation stn =
-                  locationManager.GetLocation(
-                    inputArray[1]);
+                ILocation location =
+                    locationManager.GetLocation(
+                        inputArray[1]);
 
                 string year =
-                  inputArray.Length > 2 ?
-                  inputArray[2] :
-                  string.Empty;
+                    inputArray.Length > 2 ?
+                    inputArray[2] :
+                    string.Empty;
 
                 string multipleNote =
-                  inputArray.Length > 3 ?
-                  inputArray[3] :
-                  string.Empty;
+                    inputArray.Length > 3 ?
+                    inputArray[3] :
+                    string.Empty;
 
                 image =
-                  new ImageDetails(
-                    path,
-                    year,
-                    stn,
-                    multipleNote);
+                    new ImageDetails(
+                        path,
+                        year,
+                        location,
+                        inputArray[1],
+                        multipleNote);
 
                 ClsClass clss =
-                  ImageDetailFactory.GetCls(
-                    nmbsArray.ToList(),
-                    path,
-                    faultManager,
-                    clsNmbManager);
+                    ImageDetailFactory.GetCls(
+                        nmbsArray.ToList(),
+                        path,
+                        faultManager,
+                        clsNmbManager);
                 image.SetClss(
-                  clss.Clss,
-                  clss.PresentNmbs);
+                    clss.Clss,
+                    clss.PresentNmbs);
 
                 return image;
             }
