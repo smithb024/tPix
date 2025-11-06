@@ -9,13 +9,21 @@
     using tPix.BL.Model.ClsNmbConfig;
     using tPix.Common;
 
+    /// <summary>
+    /// This is a central class which manages all business logic.
+    /// </summary>
     public class BLManager
     {
         private Random randomGenerator;
         private Model.FaultManager faultManager;
         private Model.LocationManager locationManager;
         private IClsNmbManager clsNmbManager;
+
+        /// <summary>
+        /// Collection of all the known images.
+        /// </summary>
         private List<IImageDetails> allImages;
+
         private string basePath;
 
         /// <summary>
@@ -205,6 +213,39 @@
                 location);
 
             return this.Convert(imageList);
+        }
+
+        /// <summary>
+        /// Check the locations to see if there are any new ones. 
+        /// </summary>
+        public void Check()
+        {
+            if (this.allImages != null)
+            {
+                return;
+            }
+
+            bool locationAdded = false;
+
+            foreach (IImageDetails imageDetails in this.allImages)
+            {
+                if (string.Compare(imageDetails.Location.Name, imageDetails.LocationLiteral) != 0)
+                {
+                    bool results =
+                        this.locationManager.Check(
+                            imageDetails);
+
+                    if (results)
+                    {
+                        locationAdded = true;
+                    }
+                }
+            }
+
+            if (locationAdded)
+            {
+                this.locationManager.OrderLocations();
+            }
         }
 
         private ObservableCollection<string> Convert(List<string> origCollection)

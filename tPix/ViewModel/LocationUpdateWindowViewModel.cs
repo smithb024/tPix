@@ -5,6 +5,7 @@
     using System;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
+    using tPix.BL;
     using tPix.BL.Interfaces;
     using tPix.BL.Model;
     using tPix.ViewModel.Cmd;
@@ -14,6 +15,11 @@
     /// </summary>
     public class LocationUpdateWindowViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The instance of the <see cref="BLManager"/>.
+        /// </summary>
+        private readonly BLManager blManager;
+
         private Func<string, ObservableCollection<ILocation>> getLocations;
 
         ObservableCollection<LocationConfiguratorViewModel> locationViewModels;
@@ -23,31 +29,20 @@
         private ObservableCollection<string> counties;
         private ObservableCollection<string> regions;
         private ObservableCollection<string> big4Regions;
-        private Action<ILocation> saveLocation;
 
         /// <summary>
         /// Initialises a new instance of the <see cref="LocationUpdateWindowViewModel"/> class.
         /// </summary>
-        /// <param name="getLocations"></param>
-        /// <param name="saveLocation"></param>
-        /// <param name="lines"></param>
-        /// <param name="counties"></param>
-        /// <param name="regions"></param>
-        /// <param name="big4Regions"></param>
+        /// <param name="blManager">The instance of the <see cref="BLManager"/></param>
         public LocationUpdateWindowViewModel(
-          Func<string, ObservableCollection<ILocation>> getLocations,
-          Action<ILocation> saveLocation,
-          ObservableCollection<string> lines,
-          ObservableCollection<string> counties,
-          ObservableCollection<string> regions,
-          ObservableCollection<string> big4Regions)
+            BLManager blManager)
         {
-            this.getLocations = getLocations;
-            this.lines = lines;
-            this.counties = counties;
-            this.regions = regions;
-            this.big4Regions = big4Regions;
-            this.saveLocation = saveLocation;
+            this.blManager = blManager;
+            this.getLocations = this.blManager.GetLocationsByLetter;
+            this.lines = this.blManager.GetLines();
+            this.counties = this.blManager.GetCounties();
+            this.regions = this.blManager.GetRegions();
+            this.big4Regions = this.blManager.GetBig4Regions();
 
             this.SetLocations("A");
 
@@ -85,6 +80,9 @@
             this.SaveCommand =
                 new CommonCommand(
                     this.Save);
+            this.CheckCommand =
+                new CommonCommand(
+                    this.Check);
         }
 
         public ObservableCollection<LocationConfiguratorViewModel> Locations => this.locationViewModels;
@@ -94,6 +92,11 @@
         /// Gets a command which is used to save the current setting.
         /// </summary>
         public ICommand SaveCommand { get; private set; }
+
+        /// <summary>
+        /// Gets a command which is used to check for new locations.
+        /// </summary>
+        public ICommand CheckCommand { get; private set; }
 
         private void SetLocations(string letter)
         {
@@ -165,6 +168,15 @@
 
             int j = 2;
             ++j;
+        }
+
+        /// <summary>
+        /// Check for new Locations and load them into the model.
+        /// </summary>
+        private void Check()
+        {
+            this.blManager.Check();
+            this.SetLocations("A");
         }
     }
 }

@@ -82,6 +82,16 @@
         }
 
         /// <summary>
+        /// Update the <see cref="Location"/>.
+        /// </summary>
+        /// <param name="location">The new location</param>
+        public void SetLocation(
+            ILocation location)
+        {
+            this.Location = location;
+        }
+
+        /// <summary>
         /// Gets the description of the image.
         /// </summary>
         public string Description

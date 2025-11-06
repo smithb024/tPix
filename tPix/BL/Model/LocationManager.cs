@@ -14,6 +14,11 @@
     public class LocationManager : ILocationManager
     {
         /// <summary>
+        /// Name assigned to an unknown location.
+        /// </summary>
+        private const string UnknownLocation = "unknown";
+
+        /// <summary>
         /// Base path for the collection of images.
         /// </summary>
         private readonly string locationBasePath;
@@ -136,7 +141,7 @@
                 return returnValue;
             }
 
-            ILocation unknownLocation = new Location("unknown");
+            ILocation unknownLocation = new Location(UnknownLocation);
             return unknownLocation;
 
             //ILocation newLocation = new Location(name);
@@ -190,11 +195,55 @@
         }
 
         /// <summary>
-        /// Check for any new locations.
+        /// Use the details in the <paramref name="imageDetails"/> to see if it contains location
+        /// which is not in the list.
         /// </summary>
-        public void Check()
+        /// <remarks>
+        /// If the location is not known, create it and add it to the list.
+        /// It may be possible that the image details doesn't have a location set, because it 
+        /// wasn't know at the time of creation, but has since been recognised. If this is the case
+        /// then update the image details.
+        /// Ignore any images which declare themselves as unknown.
+        /// </remarks>
+        /// <param name="imageDetails">The image to use.</param>
+        /// <returns>A value indicating whether a new location has been created</returns>
+        public bool Check(IImageDetails imageDetails)
         {
+            // Ignore if unknown.
+            if (string.Compare(imageDetails.LocationLiteral, UnknownLocation, StringComparison.OrdinalIgnoreCase) == 0)
+            {
+                return false;
+            }
 
+            ILocation found =
+                this.Locations.Locations.Find(
+                    f => string.Compare(f.Name, imageDetails.LocationLiteral) == 0);
+
+            if (found == null)
+            {
+                ILocation newLocation =
+                    new Location(
+                        imageDetails.LocationLiteral);
+                this.Locations.Locations.Add(newLocation);
+                imageDetails.SetLocation(newLocation); 
+                return true;
+            }
+            else
+            { 
+                imageDetails.SetLocation(found);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Order the locations in the model.
+        /// </summary>
+        /// <remarks>
+        /// This would be done after a check has completed.
+        /// </remarks>
+        public void OrderLocations()
+        {
+            this.Locations.Order();
         }
 
         /// <summary>

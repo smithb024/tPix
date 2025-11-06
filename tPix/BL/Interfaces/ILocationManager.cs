@@ -64,8 +64,21 @@
         void Save();
 
         /// <summary>
-        /// Check for any new locations.
+        /// Use the details in the <paramref name="imageDetails"/> to see if it contains location
+        /// which is not in the list.
         /// </summary>
-        void Check();
+        /// <param name="imageDetails">The image to use.</param>
+        /// <returns>
+        /// A value indicating if there have been any changes.
+        /// </returns>
+        bool Check(IImageDetails imageDetails);
+
+        /// <summary>
+        /// Order the locations in the model.
+        /// </summary>
+        /// <remarks>
+        /// This would be done after a check has completed.
+        /// </remarks>
+        void OrderLocations();
     }
 }

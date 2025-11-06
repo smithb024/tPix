@@ -11,5 +11,10 @@
         /// Gets a collection of locations.
         /// </summary>
         List<ILocation> Locations { get; }
+
+        /// <summary>
+        /// Order the collection.
+        /// </summary>
+        void Order();
     }
 }

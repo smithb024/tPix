@@ -41,8 +41,19 @@
                 </ScrollViewer>
             </Border>
         </Grid>
-        <Button Grid.Row="2"
-                Content="Save"
-                Command="{Binding Path=SaveCommand}"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Check For New"
+                    Grid.Column="0"
+                    Command="{Binding Path=CheckCommand}"/>
+
+            <Button Content="Save"
+                    Grid.Column="1"
+                    Command="{Binding Path=SaveCommand}"/>
+        </Grid>
     </Grid>
 </Window>

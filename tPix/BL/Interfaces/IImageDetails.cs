@@ -57,6 +57,13 @@
           List<string> present);
 
         /// <summary>
+        /// Update the <see cref="Location"/>.
+        /// </summary>
+        /// <param name="location">The new location</param>
+        void SetLocation(
+            ILocation location);
+
+        /// <summary>
         /// Indicates whether the image features a class.
         /// </summary>
         /// <param name="cls">The class to check for</param>
