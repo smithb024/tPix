@@ -3,6 +3,7 @@
     using Factories;
     using Interfaces;
     using Interfaces.Factories;
+    using NynaeveLib.Json;
     using System;
     using System.Collections.Generic;
     using System.IO;
@@ -66,7 +67,7 @@
                 try
                 {
                     this.Locations =
-                        NynaeveLib.Json.JsonFileIo.ReadJson<LocationCollection>(
+                        JsonFileIo.ReadJson<LocationCollection>(
                             this.locationBasePath + Path.DirectorySeparatorChar + "Location.json");
                 }
                 catch (Exception ex)
@@ -180,17 +181,15 @@
         /// </summary>
         public void Save()
         {
-            if (this.needsSaving)
+            try
             {
-                this.locationFactory.WriteLocations(
-                  this.locationBasePath + Path.DirectorySeparatorChar + "Location.txt",
-                  this.Locations,
-                  this.Lines,
-                  this.Counties,
-                  this.Regions,
-                  this.Big4Regions);
-
-                this.needsSaving = false;
+                JsonFileIo.WriteJson(
+                    this.Locations,
+                    this.locationBasePath + Path.DirectorySeparatorChar + "Location.json");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 
@@ -244,25 +243,6 @@
         public void OrderLocations()
         {
             this.Locations.Order();
-        }
-
-        /// <summary>
-        /// Update a location.
-        /// </summary>
-        /// <param name="updatedLocation">The location to update</param>
-        public void UpdateLocation(ILocation updatedStn)
-        {
-            for (int index = 0; index < this.Locations.Locations.Count; ++index)
-            {
-                if (string.Compare(this.Locations.Locations[index].Name, updatedStn.Name) == 0)
-                {
-                    this.Locations.Locations[index] = updatedStn;
-                    this.needsSaving = true;
-                    break;
-                }
-            }
-
-            this.Save();
         }
 
         /// <summary>

@@ -8,7 +8,6 @@
     using tPix.BL;
     using tPix.BL.Interfaces;
     using tPix.BL.Model;
-    using tPix.ViewModel.Cmd;
 
     /// <summary>
     /// View model which supports the Location Configuration dialog.
@@ -176,6 +175,7 @@
         private void Check()
         {
             this.blManager.Check();
+            this.Save();
             this.SetLocations("A");
         }
     }

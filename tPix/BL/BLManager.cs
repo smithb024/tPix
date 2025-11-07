@@ -53,8 +53,6 @@
                     this.locationManager,
                     this.clsNmbManager,
                     this.faultManager);
-
-            this.locationManager.Save();
         }
 
         public string BasePath => this.basePath;
@@ -111,11 +109,6 @@
         public ObservableCollection<ILocation> GetLocationsByLetter(string character)
         {
             return this.Convert(this.locationManager.GetLocationsByLetter(character));
-        }
-
-        public void SaveLocation(ILocation location)
-        {
-            this.locationManager.UpdateLocation(location);
         }
 
         public ObservableCollection<string> GetLines()
@@ -248,6 +241,14 @@
             }
         }
 
+        /// <summary>
+        /// Save the location collection.
+        /// </summary>
+        public void Save()
+        {
+            this.locationManager.Save();
+        }
+
         private ObservableCollection<string> Convert(List<string> origCollection)
         {
             ObservableCollection<string> outputCollection = new ObservableCollection<string>();
@@ -337,19 +338,19 @@
             switch (locationType)
             {
                 case LocationType.Location:
-                    return images.FindAll(i => i.Stn.Name == location);
+                    return images.FindAll(i => i.Location.Name == location);
                 case LocationType.Line:
                     return images.FindAll(
-                        i => i.Stn.Line == this.GetLineIndex(location));
+                        i => i.Location.Line == this.GetLineIndex(location));
                 case LocationType.County:
                     return images.FindAll(
-                        i => i.Stn.County == this.GetCountyIndex(location));
+                        i => i.Location.County == this.GetCountyIndex(location));
                 case LocationType.Region:
                     return images.FindAll(
-                        i => i.Stn.Region == this.GetRegionIndex(location));
+                        i => i.Location.Region == this.GetRegionIndex(location));
                 case LocationType.Big4Location:
                     return images.FindAll(
-                        i => i.Stn.Big4 == this.GetBig4Index(location));
+                        i => i.Location.Big4 == this.GetBig4Index(location));
                 default:
                     return new List<IImageDetails>();
             }

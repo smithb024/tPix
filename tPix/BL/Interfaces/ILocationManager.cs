@@ -38,12 +38,6 @@
         List<string> Big4Regions { get; }
 
         /// <summary>
-        /// Update a location.
-        /// </summary>
-        /// <param name="updatedLocation">The location to update</param>
-        void UpdateLocation(ILocation updatedLocation);
-
-        /// <summary>
         /// Determine and return a collection of all locations starting with the 
         /// <paramref name="character"/>.
         /// </summary>
