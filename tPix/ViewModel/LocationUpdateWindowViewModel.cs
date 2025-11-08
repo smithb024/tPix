@@ -7,7 +7,6 @@
     using System.Windows.Input;
     using tPix.BL;
     using tPix.BL.Interfaces;
-    using tPix.BL.Model;
 
     /// <summary>
     /// View model which supports the Location Configuration dialog.
@@ -84,7 +83,15 @@
                     this.Check);
         }
 
+        /// <summary>
+        /// Gets the set of locations to show on the view.
+        /// </summary>
         public ObservableCollection<LocationConfiguratorViewModel> Locations => this.locationViewModels;
+
+        /// <summary>
+        /// Gets the collection of letter commands. Each command is used to find all the locations
+        /// beginning with that letter.
+        /// </summary>
         public ObservableCollection<LetterButtonViewModel> Buttons => this.letterButtonViewModels;
 
         /// <summary>

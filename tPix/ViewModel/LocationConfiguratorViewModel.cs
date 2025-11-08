@@ -63,30 +63,41 @@
             this.big4RegionsIndex = 0;
         }
 
+        /// <summary>
+        /// Gets the name of the location.
+        /// </summary>
         public string LocationName => this.location.Name;
 
+        /// <summary>
+        /// Gets the collection of all known lines.
+        /// </summary>
         public ObservableCollection<string> LineCollection
         {
             get => this.lines;
-            set => this.SetProperty(ref this.lines, value);
         }
 
+        /// <summary>
+        /// Gets the collection of all known counties.
+        /// </summary>
         public ObservableCollection<string> CountyCollection
         {
             get => this.counties;
-            set => this.SetProperty(ref this.counties, value);
         }
 
+        /// <summary>
+        /// Gets the collection of all known regions.
+        /// </summary>
         public ObservableCollection<string> RegionCollection 
         {
             get => this.regions;
-            set => this.SetProperty(ref this.regions, value);
         }
 
+        /// <summary>
+        /// Gets the collection of all known big regions.
+        /// </summary>
         public ObservableCollection<string> Big4Collection
         {
             get => this.big4Regions;
-            set => this.SetProperty(ref this.big4Regions, value);
         }
 
         /// <summary>
@@ -105,6 +116,7 @@
 
                 this.linesIndex = value;
                 this.OnPropertyChanged(nameof(this.LinesIndex));
+                this.location.Line = this.LineCollection[this.LinesIndex];
             }
         }
 
@@ -124,6 +136,7 @@
 
                 this.countiesIndex = value;
                 this.OnPropertyChanged(nameof(this.CountiesIndex));
+                this.location.County = this.CountyCollection[this.CountiesIndex];
             }
         }
 
@@ -143,6 +156,7 @@
 
                 this.regionsIndex = value;
                 this.OnPropertyChanged(nameof(this.RegionsIndex));
+                this.location.Region = this.RegionCollection[this.RegionsIndex];
             }
         }
 
@@ -162,6 +176,7 @@
 
                 this.big4RegionsIndex = value;
                 this.OnPropertyChanged(nameof(this.Big4RegionsIndex));
+                this.location.Big4 = this.Big4Collection[this.Big4RegionsIndex];
             }
         }
     }
