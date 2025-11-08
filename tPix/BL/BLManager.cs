@@ -213,7 +213,7 @@
         /// </summary>
         public void Check()
         {
-            if (this.allImages != null)
+            if (this.allImages == null)
             {
                 return;
             }
