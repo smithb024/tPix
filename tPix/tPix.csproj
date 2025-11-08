@@ -95,8 +95,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BL\Factories\LocationFactory.cs" />
-    <Compile Include="BL\Interfaces\Factories\ILocationFactory.cs" />
     <Compile Include="BL\Interfaces\ILocationCollection.cs" />
     <Compile Include="BL\Model\FaultManager.cs" />
     <Compile Include="BL\Model\LocationCollection.cs" />

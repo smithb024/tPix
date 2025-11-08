@@ -297,26 +297,6 @@
             return outputCollection;
         }
 
-        private int GetLineIndex(string line)
-        {
-            return this.locationManager.Lines.FindIndex(l => l == line);
-        }
-
-        private int GetCountyIndex(string county)
-        {
-            return this.locationManager.Counties.FindIndex(l => l == county);
-        }
-
-        private int GetRegionIndex(string region)
-        {
-            return this.locationManager.Regions.FindIndex(l => l == region);
-        }
-
-        private int GetBig4Index(string big4)
-        {
-            return this.locationManager.Big4Regions.FindIndex(l => l == big4);
-        }
-
         private List<IImageDetails> GetImageDetails(
           string clsName)
         {
@@ -330,6 +310,16 @@
             return this.allImages.FindAll(i => i.ContainsCls(clsName) && i.ContainsNmb(nmb));
         }
 
+        /// <summary>
+        /// Get a list of <see cref="IImageDetails"/> objects which match the search criteria.
+        /// </summary>
+        /// <param name="images">The original set of <see cref="IImageDetails"/></param>
+        /// <param name="locationType">The type of location to search for</param>
+        /// <param name="location">The location name being searched for</param>
+        /// <returns>
+        /// The collection of <see cref="IImageDetails"/> objects which correspond to the search 
+        /// critera.
+        /// </returns>
         private List<IImageDetails> GetImageDetails(
           List<IImageDetails> images,
           LocationType locationType,
@@ -341,16 +331,16 @@
                     return images.FindAll(i => i.Location.Name == location);
                 case LocationType.Line:
                     return images.FindAll(
-                        i => i.Location.Line == this.GetLineIndex(location));
+                        i => i.Location.Line == location);
                 case LocationType.County:
                     return images.FindAll(
-                        i => i.Location.County == this.GetCountyIndex(location));
+                        i => i.Location.County == location);
                 case LocationType.Region:
                     return images.FindAll(
-                        i => i.Location.Region == this.GetRegionIndex(location));
+                        i => i.Location.Region == location);
                 case LocationType.Big4Location:
                     return images.FindAll(
-                        i => i.Location.Big4 == this.GetBig4Index(location));
+                        i => i.Location.Big4 == location);
                 default:
                     return new List<IImageDetails>();
             }

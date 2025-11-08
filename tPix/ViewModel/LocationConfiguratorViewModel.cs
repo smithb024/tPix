@@ -5,6 +5,9 @@
     using System.Collections.ObjectModel;
     using tPix.BL.Interfaces;
 
+    /// <summary>
+    /// View mode which supports a single line on the Locations Configuration view.
+    /// </summary>
     public class LocationConfiguratorViewModel : ViewModelBase
     {
         private ILocation location;
@@ -12,22 +15,52 @@
         private ObservableCollection<string> counties;
         private ObservableCollection<string> regions;
         private ObservableCollection<string> big4Regions;
-        Action<ILocation> saveLocation;
 
+        /// <summary>
+        /// The index of the currently selected line;
+        /// </summary>
+        private int linesIndex;
+
+        /// <summary>
+        /// The index of the currently selected county;
+        /// </summary>
+        private int countiesIndex;
+
+        /// <summary>
+        /// The index of the currently selected region;
+        /// </summary>
+        private int regionsIndex;
+
+        /// <summary>
+        /// The index of the currently selected big region;
+        /// </summary>
+        private int big4RegionsIndex;
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="LocationConfiguratorViewModel"/> class.
+        /// </summary>
+        /// <param name="location">The model object of the assocated location.</param>
+        /// <param name="lines">Collection of known lines.</param>
+        /// <param name="counties">Collection of known counties.</param>
+        /// <param name="regions">Collection of known regions.</param>
+        /// <param name="big4Regions">Collection of known big regions.</param>
         public LocationConfiguratorViewModel(
           ILocation location,
           ObservableCollection<string> lines,
           ObservableCollection<string> counties,
           ObservableCollection<string> regions,
-          ObservableCollection<string> big4Regions,
-          Action<ILocation> saveLocation)
+          ObservableCollection<string> big4Regions)
         {
             this.location = location;
             this.lines = lines;
             this.counties = counties;
             this.regions = regions;
             this.big4Regions = big4Regions;
-            this.saveLocation = saveLocation;
+
+            this.linesIndex = 0;
+            this.countiesIndex = 0;
+            this.regionsIndex = 0;
+            this.big4RegionsIndex = 0;
         }
 
         public string LocationName => this.location.Name;
@@ -56,121 +89,80 @@
             set => this.SetProperty(ref this.big4Regions, value);
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected line.
+        /// </summary>
         public int LinesIndex
         {
-            get
-            {
-                if (this.location.Line != null)
-                {
-                    return (int)this.location.Line + 1;
-                }
-
-                return 0;
-            }
+            get => this.linesIndex;
 
             set
             {
-                if (value == 0)
+                if (this.linesIndex == value) 
                 {
-                    this.location.Line = null;
-                }
-                else
-                {
-                    this.location.Line = value - 1;
+                    return;
                 }
 
+                this.linesIndex = value;
                 this.OnPropertyChanged(nameof(this.LinesIndex));
-                this.Save();
             }
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected county.
+        /// </summary>
         public int CountiesIndex
         {
-            get
-            {
-                if (this.location.County != null)
-                {
-                    return (int)this.location.County + 1;
-                }
-
-                return 0;
-            }
+            get => this.countiesIndex;
 
             set
             {
-                if (value == 0)
+                if (this.countiesIndex == value)
                 {
-                    this.location.County = null;
-                }
-                else
-                {
-                    this.location.County = value - 1;
+                    return;
                 }
 
+                this.countiesIndex = value;
                 this.OnPropertyChanged(nameof(this.CountiesIndex));
-                this.Save();
             }
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected region.
+        /// </summary>
         public int RegionsIndex
         {
-            get
-            {
-                if (this.location.Region != null)
-                {
-                    return (int)this.location.Region + 1;
-                }
-
-                return 0;
-            }
+            get => this.regionsIndex;
 
             set
             {
-                if (value == 0)
+                if (this.regionsIndex == value)
                 {
-                    this.location.Region = null;
-                }
-                else
-                {
-                    this.location.Region = value - 1;
+                    return;
                 }
 
+                this.regionsIndex = value;
                 this.OnPropertyChanged(nameof(this.RegionsIndex));
-                this.Save();
             }
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected big region.
+        /// </summary>
         public int Big4RegionsIndex
         {
-            get
-            {
-                if (this.location.Big4 != null)
-                {
-                    return (int)this.location.Big4 + 1;
-                }
-
-                return 0;
-            }
+            get => this.big4RegionsIndex;
 
             set
             {
-                if (value == 0)
+                if (this.big4RegionsIndex == value)
                 {
-                    this.location.Big4 = null;
-                }
-                else
-                {
-                    this.location.Big4 = value - 1;
+                    return;
                 }
 
+                this.big4RegionsIndex = value;
                 this.OnPropertyChanged(nameof(this.Big4RegionsIndex));
-                this.Save();
             }
-        }
-
-        private void Save()
-        {
-            this.saveLocation.Invoke(this.location);
         }
     }
 }

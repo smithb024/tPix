@@ -25,11 +25,6 @@
         private readonly string locationBasePath;
 
         /// <summary>
-        /// The instance of the location factory utility.
-        /// </summary>
-        private readonly ILocationFactory locationFactory;
-
-        /// <summary>
         /// Indicates whether the model needs to be saved.
         /// </summary>
         private bool needsSaving;
@@ -44,7 +39,6 @@
           FaultManager faultManager)
         {
             this.needsSaving = false;
-            this.locationFactory = new LocationFactory();
             this.Locations = new LocationCollection();
 
             this.locationBasePath = path + Path.DirectorySeparatorChar + "Locations";

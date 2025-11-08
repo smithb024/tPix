@@ -97,6 +97,12 @@
         /// </summary>
         public ICommand CheckCommand { get; private set; }
 
+        /// <summary>
+        /// Create a view model for each location in the set.
+        /// </summary>
+        /// <param name="letter">
+        /// The set consists of all known locations starting which this letter.
+        /// </param>
         private void SetLocations(string letter)
         {
             ObservableCollection<ILocation> locations = this.getLocations.Invoke(letter);
@@ -108,11 +114,10 @@
                 LocationConfiguratorViewModel locationViewModel =
                   new LocationConfiguratorViewModel(
                     location,
-                    lines,
-                    counties,
-                    regions,
-                    big4Regions,
-                    this.saveLocation);
+                    this.lines,
+                    this.counties,
+                    this.regions,
+                    this.big4Regions);
 
                 this.locationViewModels.Add(locationViewModel);
             }
@@ -125,48 +130,7 @@
         /// </summary>
         private void Save()
         {
-            ILocation test =
-                new Location(
-                    "TestLocation",
-                    3,
-                    6,
-                    null,
-                    7);
-            ILocation test2 =
-                new Location(
-                    "Two",
-                    1,
-                    2,
-                    6,
-                    7);
-            ILocation test3 =
-                new Location(
-                    "Three",
-                    null,
-                    3,
-                    9,
-                    33);
-            ILocationCollection locations = new LocationCollection();
-            locations.Locations.Add(test);
-            locations.Locations.Add(test2);
-            locations.Locations.Add(test3);
-
-            NynaeveLib.Json.JsonFileIo.WriteJson(locations, "C:\\tp\\test.json");
-
-            LocationCollection read;
-
-            try
-            {
-                read = NynaeveLib.Json.JsonFileIo.ReadJson<LocationCollection>("C:\\tp\\test.json");
-            }
-            catch (Exception ex) 
-            {
-                int i = 0;
-                ++i;
-            }
-
-            int j = 2;
-            ++j;
+            this.blManager.Save();
         }
 
         /// <summary>
