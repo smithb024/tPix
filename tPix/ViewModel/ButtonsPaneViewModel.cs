@@ -39,16 +39,9 @@
         /// </summary>
         private void ShowConfigLocationsWindow()
         {
-            // TODO, prior to any changes, this code crashed when opening the dialog.
-
             LocationUpdateWindowViewModel locationUpdateViewModel =
               new LocationUpdateWindowViewModel(
-                this.bLManager.GetLocationsByLetter,
-                this.bLManager.SaveLocation,
-                this.bLManager.GetLines(),
-                this.bLManager.GetCounties(),
-                this.bLManager.GetRegions(),
-                this.bLManager.GetBig4Regions());
+                this.bLManager);
 
             DialogService service = new DialogService();
 

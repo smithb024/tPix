@@ -6,16 +6,25 @@
     using Common.Enum;
     using tPix.BL.Interfaces;
     using tPix.BL.Interfaces.ClsNmbConfig;
+    using tPix.BL.Model;
     using tPix.BL.Model.ClsNmbConfig;
     using tPix.Common;
 
+    /// <summary>
+    /// This is a central class which manages all business logic.
+    /// </summary>
     public class BLManager
     {
         private Random randomGenerator;
         private Model.FaultManager faultManager;
         private Model.LocationManager locationManager;
         private IClsNmbManager clsNmbManager;
+
+        /// <summary>
+        /// Collection of all the known images.
+        /// </summary>
         private List<IImageDetails> allImages;
+
         private string basePath;
 
         /// <summary>
@@ -45,8 +54,6 @@
                     this.locationManager,
                     this.clsNmbManager,
                     this.faultManager);
-
-            this.locationManager.Save();
         }
 
         public string BasePath => this.basePath;
@@ -100,14 +107,9 @@
             return this.Convert(this.locationManager.LocationsByName);
         }
 
-        public ObservableCollection<ILocation> GetLocationsByLetter(string character)
+        public ObservableCollection<Location> GetLocationsByLetter(string character)
         {
             return this.Convert(this.locationManager.GetLocationsByLetter(character));
-        }
-
-        public void SaveLocation(ILocation location)
-        {
-            this.locationManager.UpdateLocation(location);
         }
 
         public ObservableCollection<string> GetLines()
@@ -207,6 +209,47 @@
             return this.Convert(imageList);
         }
 
+        /// <summary>
+        /// Check the locations to see if there are any new ones. 
+        /// </summary>
+        public void Check()
+        {
+            if (this.allImages == null)
+            {
+                return;
+            }
+
+            bool locationAdded = false;
+
+            foreach (IImageDetails imageDetails in this.allImages)
+            {
+                if (string.Compare(imageDetails.Location.Name, imageDetails.LocationLiteral) != 0)
+                {
+                    bool results =
+                        this.locationManager.Check(
+                            imageDetails);
+
+                    if (results)
+                    {
+                        locationAdded = true;
+                    }
+                }
+            }
+
+            if (locationAdded)
+            {
+                this.locationManager.OrderLocations();
+            }
+        }
+
+        /// <summary>
+        /// Save the location collection.
+        /// </summary>
+        public void Save()
+        {
+            this.locationManager.Save();
+        }
+
         private ObservableCollection<string> Convert(List<string> origCollection)
         {
             ObservableCollection<string> outputCollection = new ObservableCollection<string>();
@@ -240,39 +283,19 @@
             return outputCollection;
         }
 
-        private ObservableCollection<ILocation> Convert(List<ILocation> origCollection)
+        private ObservableCollection<Location> Convert(List<Location> origCollection)
         {
-            ObservableCollection<ILocation> outputCollection = new ObservableCollection<ILocation>();
+            ObservableCollection<Location> outputCollection = new ObservableCollection<Location>();
 
             if (origCollection != null)
             {
-                foreach (ILocation item in origCollection)
+                foreach (Location item in origCollection)
                 {
                     outputCollection.Add(item);
                 }
             }
 
             return outputCollection;
-        }
-
-        private int GetLineIndex(string line)
-        {
-            return this.locationManager.Lines.FindIndex(l => l == line);
-        }
-
-        private int GetCountyIndex(string county)
-        {
-            return this.locationManager.Counties.FindIndex(l => l == county);
-        }
-
-        private int GetRegionIndex(string region)
-        {
-            return this.locationManager.Regions.FindIndex(l => l == region);
-        }
-
-        private int GetBig4Index(string big4)
-        {
-            return this.locationManager.Big4Regions.FindIndex(l => l == big4);
         }
 
         private List<IImageDetails> GetImageDetails(
@@ -288,6 +311,16 @@
             return this.allImages.FindAll(i => i.ContainsCls(clsName) && i.ContainsNmb(nmb));
         }
 
+        /// <summary>
+        /// Get a list of <see cref="IImageDetails"/> objects which match the search criteria.
+        /// </summary>
+        /// <param name="images">The original set of <see cref="IImageDetails"/></param>
+        /// <param name="locationType">The type of location to search for</param>
+        /// <param name="location">The location name being searched for</param>
+        /// <returns>
+        /// The collection of <see cref="IImageDetails"/> objects which correspond to the search 
+        /// critera.
+        /// </returns>
         private List<IImageDetails> GetImageDetails(
           List<IImageDetails> images,
           LocationType locationType,
@@ -296,19 +329,19 @@
             switch (locationType)
             {
                 case LocationType.Location:
-                    return images.FindAll(i => i.Stn.Name == location);
+                    return images.FindAll(i => i.Location.Name == location);
                 case LocationType.Line:
                     return images.FindAll(
-                        i => i.Stn.Line == this.GetLineIndex(location));
+                        i => i.Location.Line == location);
                 case LocationType.County:
                     return images.FindAll(
-                        i => i.Stn.County == this.GetCountyIndex(location));
+                        i => i.Location.County == location);
                 case LocationType.Region:
                     return images.FindAll(
-                        i => i.Stn.Region == this.GetRegionIndex(location));
+                        i => i.Location.Region == location);
                 case LocationType.Big4Location:
                     return images.FindAll(
-                        i => i.Stn.Big4 == this.GetBig4Index(location));
+                        i => i.Location.Big4 == location);
                 default:
                     return new List<IImageDetails>();
             }

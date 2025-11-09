@@ -3,174 +3,234 @@
     using NynaeveLib.ViewModel;
     using System;
     using System.Collections.ObjectModel;
-    using tPix.BL.Interfaces;
+    using tPix.BL.Model;
 
+    /// <summary>
+    /// View mode which supports a single line on the Locations Configuration view.
+    /// </summary>
     public class LocationConfiguratorViewModel : ViewModelBase
     {
-        private ILocation location;
-        private ObservableCollection<string> lines;
-        private ObservableCollection<string> counties;
-        private ObservableCollection<string> regions;
-        private ObservableCollection<string> big4Regions;
-        Action<ILocation> saveLocation;
+        /// <summary>
+        /// The location model object which this view model represents.
+        /// </summary>
+        private Location location;
 
+        /// <summary>
+        /// A collection of all known lines.
+        /// </summary>
+        private ObservableCollection<string> lines;
+
+        /// <summary>
+        /// A collection of all known counties.
+        /// </summary>
+        private ObservableCollection<string> counties;
+
+        /// <summary>
+        /// A collection of all known regions.
+        /// </summary>
+        private ObservableCollection<string> regions;
+
+        /// <summary>
+        /// A collection of all known big regions.
+        /// </summary>
+        private ObservableCollection<string> big4Regions;
+
+        /// <summary>
+        /// The index of the currently selected line;
+        /// </summary>
+        private int linesIndex;
+
+        /// <summary>
+        /// The index of the currently selected county;
+        /// </summary>
+        private int countiesIndex;
+
+        /// <summary>
+        /// The index of the currently selected region;
+        /// </summary>
+        private int regionsIndex;
+
+        /// <summary>
+        /// The index of the currently selected big region;
+        /// </summary>
+        private int big4RegionsIndex;
+
+        /// <summary>
+        /// Initialises a new instance of the <see cref="LocationConfiguratorViewModel"/> class.
+        /// </summary>
+        /// <param name="location">The model object of the assocated location.</param>
+        /// <param name="lines">Collection of known lines.</param>
+        /// <param name="counties">Collection of known counties.</param>
+        /// <param name="regions">Collection of known regions.</param>
+        /// <param name="big4Regions">Collection of known big regions.</param>
         public LocationConfiguratorViewModel(
-          ILocation location,
+          Location location,
           ObservableCollection<string> lines,
           ObservableCollection<string> counties,
           ObservableCollection<string> regions,
-          ObservableCollection<string> big4Regions,
-          Action<ILocation> saveLocation)
+          ObservableCollection<string> big4Regions)
         {
             this.location = location;
             this.lines = lines;
             this.counties = counties;
             this.regions = regions;
             this.big4Regions = big4Regions;
-            this.saveLocation = saveLocation;
+
+            this.linesIndex = 
+                this.FindIndex(
+                    location.Line,
+                    this.lines);
+            this.countiesIndex =
+                this.FindIndex(
+                    location.County,
+                    this.counties);
+            this.regionsIndex =
+                this.FindIndex(
+                    location.Region,
+                    this.regions);
+            this.big4RegionsIndex =
+                this.FindIndex(
+                    location.Big4,
+                    this.big4Regions);
         }
 
+        /// <summary>
+        /// Gets the name of the location.
+        /// </summary>
         public string LocationName => this.location.Name;
 
+        /// <summary>
+        /// Gets the collection of all known lines.
+        /// </summary>
         public ObservableCollection<string> LineCollection
         {
             get => this.lines;
-            set => this.SetProperty(ref this.lines, value);
         }
 
+        /// <summary>
+        /// Gets the collection of all known counties.
+        /// </summary>
         public ObservableCollection<string> CountyCollection
         {
             get => this.counties;
-            set => this.SetProperty(ref this.counties, value);
         }
 
+        /// <summary>
+        /// Gets the collection of all known regions.
+        /// </summary>
         public ObservableCollection<string> RegionCollection 
         {
             get => this.regions;
-            set => this.SetProperty(ref this.regions, value);
         }
 
+        /// <summary>
+        /// Gets the collection of all known big regions.
+        /// </summary>
         public ObservableCollection<string> Big4Collection
         {
             get => this.big4Regions;
-            set => this.SetProperty(ref this.big4Regions, value);
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected line.
+        /// </summary>
         public int LinesIndex
         {
-            get
-            {
-                if (this.location.Line != null)
-                {
-                    return (int)this.location.Line + 1;
-                }
-
-                return 0;
-            }
+            get => this.linesIndex;
 
             set
             {
-                if (value == 0)
+                if (this.linesIndex == value) 
                 {
-                    this.location.Line = null;
-                }
-                else
-                {
-                    this.location.Line = value - 1;
+                    return;
                 }
 
+                this.linesIndex = value;
                 this.OnPropertyChanged(nameof(this.LinesIndex));
-                this.Save();
+                this.location.Line = this.LineCollection[this.LinesIndex];
             }
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected county.
+        /// </summary>
         public int CountiesIndex
         {
-            get
-            {
-                if (this.location.County != null)
-                {
-                    return (int)this.location.County + 1;
-                }
-
-                return 0;
-            }
+            get => this.countiesIndex;
 
             set
             {
-                if (value == 0)
+                if (this.countiesIndex == value)
                 {
-                    this.location.County = null;
-                }
-                else
-                {
-                    this.location.County = value - 1;
+                    return;
                 }
 
+                this.countiesIndex = value;
                 this.OnPropertyChanged(nameof(this.CountiesIndex));
-                this.Save();
+                this.location.County = this.CountyCollection[this.CountiesIndex];
             }
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected region.
+        /// </summary>
         public int RegionsIndex
         {
-            get
-            {
-                if (this.location.Region != null)
-                {
-                    return (int)this.location.Region + 1;
-                }
-
-                return 0;
-            }
+            get => this.regionsIndex;
 
             set
             {
-                if (value == 0)
+                if (this.regionsIndex == value)
                 {
-                    this.location.Region = null;
-                }
-                else
-                {
-                    this.location.Region = value - 1;
+                    return;
                 }
 
+                this.regionsIndex = value;
                 this.OnPropertyChanged(nameof(this.RegionsIndex));
-                this.Save();
+                this.location.Region = this.RegionCollection[this.RegionsIndex];
             }
         }
 
+        /// <summary>
+        /// Gets or sets the index of the currently selected big region.
+        /// </summary>
         public int Big4RegionsIndex
         {
-            get
-            {
-                if (this.location.Big4 != null)
-                {
-                    return (int)this.location.Big4 + 1;
-                }
-
-                return 0;
-            }
+            get => this.big4RegionsIndex;
 
             set
             {
-                if (value == 0)
+                if (this.big4RegionsIndex == value)
                 {
-                    this.location.Big4 = null;
-                }
-                else
-                {
-                    this.location.Big4 = value - 1;
+                    return;
                 }
 
+                this.big4RegionsIndex = value;
                 this.OnPropertyChanged(nameof(this.Big4RegionsIndex));
-                this.Save();
+                this.location.Big4 = this.Big4Collection[this.Big4RegionsIndex];
             }
         }
 
-        private void Save()
+        /// <summary>
+        /// Search the <paramref name="collection"/> for the value which equals <paramref name="searchValue"/>.
+        /// Return the index of the value. If no value is found, return an index of 0.
+        /// </summary>
+        /// <param name="searchValue">The value to search for</param>
+        /// <param name="collection">The collection to search</param>
+        /// <returns>The found index.</returns>
+        private int FindIndex(
+            string searchValue,
+            ObservableCollection<string> collection)
         {
-            this.saveLocation.Invoke(this.location);
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (string.Equals(collection[i], searchValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    return i;
+                }
+            }
+
+            return 0;
         }
     }
 }

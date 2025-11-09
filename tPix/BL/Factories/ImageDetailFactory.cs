@@ -1,25 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tPix.BL.Factories
+﻿namespace tPix.BL.Factories
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using Interfaces;
     using Interfaces.ClsNmbConfig;
     using Model;
 
+    /// <summary>
+    /// Factory class which is used to analyse an image.
+    /// </summary>
     public static class ImageDetailFactory
     {
+        /// <summary>
+        /// Character which separates the sections in the name.
+        /// </summary>
         private static char majorTick = '-';
+
+        /// <summary>
+        /// Character which separates a section in the name.
+        /// </summary>
         private static char minorTick = '_';
+
+        /// <summary>
+        /// Not currently used.
+        /// </summary>
         private static char alternativeTick = '~';
+
+        /// <summary>
+        /// Character which separates a class name.
+        /// </summary>
         private static char clsTick = '^';
+
+        /// <summary>
+        /// The extention marker.
+        /// </summary>
         private static char extensionSeparator = '.';
 
+        /// <summary>
+        /// Class which describes a class.
+        /// </summary>
         private class ClsClass
         {
+            /// <summary>
+            /// Initialises a new instance of the <see cref="ClsClass"/> class.
+            /// </summary>
+            /// <param name="clss">List of classes</param>
+            /// <param name="presentNmbs">list of numbers</param>
             public ClsClass(
               List<ICls> clss,
               List<string> presentNmbs)
@@ -32,6 +59,14 @@ namespace tPix.BL.Factories
             public List<string> PresentNmbs { get; }
         }
 
+        /// <summary>
+        /// Analyse an image and return the details.
+        /// </summary>
+        /// <param name="path">Image path</param>
+        /// <param name="locationManager">The instance of the location manager</param>
+        /// <param name="clsNmbManager">The instance of the class number manager</param>
+        /// <param name="faultManager">The instance of the fault manager</param>
+        /// <returns>The image details.</returns>
         public static IImageDetails AnalyseImageDetails(
           string path,
           ILocationManager locationManager,
@@ -60,36 +95,37 @@ namespace tPix.BL.Factories
 
                 string[] nmbsArray = inputArray[0].Split(minorTick);
 
-                ILocation stn =
-                  locationManager.GetStn(
-                    inputArray[1]);
+                Location location =
+                    locationManager.GetLocation(
+                        inputArray[1]);
 
                 string year =
-                  inputArray.Length > 2 ?
-                  inputArray[2] :
-                  string.Empty;
+                    inputArray.Length > 2 ?
+                    inputArray[2] :
+                    string.Empty;
 
                 string multipleNote =
-                  inputArray.Length > 3 ?
-                  inputArray[3] :
-                  string.Empty;
+                    inputArray.Length > 3 ?
+                    inputArray[3] :
+                    string.Empty;
 
                 image =
-                  new ImageDetails(
-                    path,
-                    year,
-                    stn,
-                    multipleNote);
+                    new ImageDetails(
+                        path,
+                        year,
+                        location,
+                        inputArray[1],
+                        multipleNote);
 
                 ClsClass clss =
-                  ImageDetailFactory.GetCls(
-                    nmbsArray.ToList(),
-                    path,
-                    faultManager,
-                    clsNmbManager);
+                    ImageDetailFactory.GetCls(
+                        nmbsArray.ToList(),
+                        path,
+                        faultManager,
+                        clsNmbManager);
                 image.SetClss(
-                  clss.Clss,
-                  clss.PresentNmbs);
+                    clss.Clss,
+                    clss.PresentNmbs);
 
                 return image;
             }
