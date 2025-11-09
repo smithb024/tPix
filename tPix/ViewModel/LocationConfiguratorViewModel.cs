@@ -3,8 +3,6 @@
     using NynaeveLib.ViewModel;
     using System;
     using System.Collections.ObjectModel;
-    using System.Security.Cryptography;
-    using tPix.BL.Interfaces;
     using tPix.BL.Model;
 
     /// <summary>
@@ -12,10 +10,29 @@
     /// </summary>
     public class LocationConfiguratorViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The location model object which this view model represents.
+        /// </summary>
         private Location location;
+
+        /// <summary>
+        /// A collection of all known lines.
+        /// </summary>
         private ObservableCollection<string> lines;
+
+        /// <summary>
+        /// A collection of all known counties.
+        /// </summary>
         private ObservableCollection<string> counties;
+
+        /// <summary>
+        /// A collection of all known regions.
+        /// </summary>
         private ObservableCollection<string> regions;
+
+        /// <summary>
+        /// A collection of all known big regions.
+        /// </summary>
         private ObservableCollection<string> big4Regions;
 
         /// <summary>
