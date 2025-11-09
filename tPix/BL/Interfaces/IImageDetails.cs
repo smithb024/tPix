@@ -1,6 +1,7 @@
 ﻿namespace tPix.BL.Interfaces
 {
     using System.Collections.Generic;
+    using tPix.BL.Model;
 
     /// <summary>
     /// Interface which describe the information about a specific image.
@@ -30,7 +31,7 @@
         /// <summary>
         /// Gets the location featured in the image.
         /// </summary>
-        ILocation Location { get; }
+        Location Location { get; }
 
         /// <summary>
         /// Gets the location taken from the image name.
@@ -61,7 +62,7 @@
         /// </summary>
         /// <param name="location">The new location</param>
         void SetLocation(
-            ILocation location);
+            Location location);
 
         /// <summary>
         /// Indicates whether the image features a class.

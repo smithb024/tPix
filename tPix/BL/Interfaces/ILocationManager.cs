@@ -1,6 +1,7 @@
 ﻿namespace tPix.BL.Interfaces
 {
     using System.Collections.Generic;
+    using tPix.BL.Model;
 
     /// <summary>
     /// Interface for a class which manages the locations.
@@ -10,7 +11,7 @@
         /// <summary>
         /// Gets an object which contains the collection of all location objects.
         /// </summary>
-        ILocationCollection Locations { get; }
+        LocationCollection Locations { get; }
 
         /// <summary>
         /// Gets a collection of the names of all locations.
@@ -43,14 +44,14 @@
         /// </summary>
         /// <param name="character">The search parameter</param>
         /// <returns>The collection of locations</returns>
-        List<ILocation> GetLocationsByLetter(string character);
+        List<Location> GetLocationsByLetter(string character);
 
         /// <summary>
         /// Find a location with a given name.
         /// </summary>
         /// <param name="name">The search parameter</param>
         /// <returns>The found location.</returns>
-        ILocation GetLocation(string name);
+        Location GetLocation(string name);
 
         /// <summary>
         /// Save the locations.

@@ -95,7 +95,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BL\Interfaces\ILocationCollection.cs" />
     <Compile Include="BL\Model\FaultManager.cs" />
     <Compile Include="BL\Model\LocationCollection.cs" />
     <Compile Include="Common\Enum\LocationType.cs" />
@@ -174,7 +173,6 @@
     <Compile Include="BL\Interfaces\IFaultManager.cs" />
     <Compile Include="BL\Interfaces\IImageDetails.cs" />
     <Compile Include="BL\Interfaces\ILocationManager.cs" />
-    <Compile Include="BL\Interfaces\ILocation.cs" />
     <Compile Include="BL\Model\Cls.cs" />
     <Compile Include="BL\Model\ClsNmbConfig\ClsDetails.cs" />
     <Compile Include="BL\Model\ClsNmbConfig\NmbDetails.cs" />

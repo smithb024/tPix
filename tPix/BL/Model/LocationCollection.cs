@@ -8,7 +8,7 @@
     /// <summary>
     /// Contains a collection of <see cref="Location"/> objects.
     /// </summary>
-    public class LocationCollection : ILocationCollection
+    public class LocationCollection
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="LocationCollection"/> class.
@@ -16,13 +16,13 @@
         [JsonConstructor]
         public LocationCollection() 
         {
-            this.Locations = new List<ILocation>();
+            this.Locations = new List<Location>();
         }
 
         /// <summary>
         /// Gets a collection of locations.
         /// </summary>
-        public List<ILocation> Locations { get; private set; }
+        public List<Location> Locations { get; private set; }
 
         /// <summary>
         /// Order the collection.
@@ -30,7 +30,7 @@
         public void Order()
         {
             this.Locations =
-                new List<ILocation>(
+                new List<Location>(
                     from i in this.Locations orderby i.Name select i);
         }
     }

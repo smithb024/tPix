@@ -6,7 +6,7 @@
     /// <summary>
     /// A location object. This is JSON serialisable.
     /// </summary>
-    public class Location : ILocation
+    public class Location
     {
         /// <summary>
         /// Initialises a new instance of the <see cref="Location"/> class.

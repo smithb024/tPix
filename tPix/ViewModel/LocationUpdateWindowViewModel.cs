@@ -7,6 +7,7 @@
     using System.Windows.Input;
     using tPix.BL;
     using tPix.BL.Interfaces;
+    using tPix.BL.Model;
 
     /// <summary>
     /// View model which supports the Location Configuration dialog.
@@ -18,7 +19,7 @@
         /// </summary>
         private readonly BLManager blManager;
 
-        private Func<string, ObservableCollection<ILocation>> getLocations;
+        private Func<string, ObservableCollection<Location>> getLocations;
 
         ObservableCollection<LocationConfiguratorViewModel> locationViewModels;
         ObservableCollection<LetterButtonViewModel> letterButtonViewModels;
@@ -112,11 +113,11 @@
         /// </param>
         private void SetLocations(string letter)
         {
-            ObservableCollection<ILocation> locations = this.getLocations.Invoke(letter);
+            ObservableCollection<Location> locations = this.getLocations.Invoke(letter);
 
             this.locationViewModels = new ObservableCollection<LocationConfiguratorViewModel>();
 
-            foreach (ILocation location in locations)
+            foreach (Location location in locations)
             {
                 LocationConfiguratorViewModel locationViewModel =
                   new LocationConfiguratorViewModel(

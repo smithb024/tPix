@@ -21,7 +21,7 @@
         public ImageDetails(
           string path,
           string year,
-          ILocation loc,
+          Location loc,
           string locationLiteral,
           string multipleNote)
         {
@@ -51,7 +51,7 @@
         /// <summary>
         /// Gets the location of the image.
         /// </summary>
-        public ILocation Location { get; private set; }
+        public Location Location { get; private set; }
 
         /// <summary>
         /// Gets the location taken from the image name.
@@ -86,7 +86,7 @@
         /// </summary>
         /// <param name="location">The new location</param>
         public void SetLocation(
-            ILocation location)
+            Location location)
         {
             this.Location = location;
         }

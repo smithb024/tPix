@@ -6,6 +6,7 @@
     using Common.Enum;
     using tPix.BL.Interfaces;
     using tPix.BL.Interfaces.ClsNmbConfig;
+    using tPix.BL.Model;
     using tPix.BL.Model.ClsNmbConfig;
     using tPix.Common;
 
@@ -106,7 +107,7 @@
             return this.Convert(this.locationManager.LocationsByName);
         }
 
-        public ObservableCollection<ILocation> GetLocationsByLetter(string character)
+        public ObservableCollection<Location> GetLocationsByLetter(string character)
         {
             return this.Convert(this.locationManager.GetLocationsByLetter(character));
         }
@@ -282,13 +283,13 @@
             return outputCollection;
         }
 
-        private ObservableCollection<ILocation> Convert(List<ILocation> origCollection)
+        private ObservableCollection<Location> Convert(List<Location> origCollection)
         {
-            ObservableCollection<ILocation> outputCollection = new ObservableCollection<ILocation>();
+            ObservableCollection<Location> outputCollection = new ObservableCollection<Location>();
 
             if (origCollection != null)
             {
-                foreach (ILocation item in origCollection)
+                foreach (Location item in origCollection)
                 {
                     outputCollection.Add(item);
                 }

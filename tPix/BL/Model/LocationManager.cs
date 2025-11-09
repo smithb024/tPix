@@ -55,6 +55,10 @@
             this.Regions =
               this.ReadListFileContents(
                 this.locationBasePath + Path.DirectorySeparatorChar + "Region.txt");
+            this.Lines.Insert(0, string.Empty);
+            this.Counties.Insert(0, string.Empty);
+            this.Regions.Insert(0, string.Empty);
+            this.Big4Regions.Insert(0, string.Empty);
 
             if (File.Exists(this.locationBasePath + Path.DirectorySeparatorChar + "Location.json"))
             {
@@ -99,7 +103,7 @@
         /// <summary>
         /// Gets an object which contains the collection of all location objects.
         /// </summary>
-        public ILocationCollection Locations { get; private set; }
+        public LocationCollection Locations { get; private set; }
 
         /// <summary>
         /// Gets a collection of the names of all locations. 
@@ -109,7 +113,7 @@
             get
             {
                 List<string> locations = new List<string>();
-                foreach (ILocation location in this.Locations.Locations)
+                foreach (Location location in this.Locations.Locations)
                 {
                     locations.Add(location.Name);
                 }
@@ -126,9 +130,9 @@
         /// </remarks>
         /// <param name="name">The search parameter</param>
         /// <returns>The found location.</returns>
-        public ILocation GetLocation(string name)
+        public Location GetLocation(string name)
         {
-            ILocation returnValue =
+            Location returnValue =
               this.Locations.Locations.Find(l => l.Name == name);
 
             if (returnValue != null)
@@ -136,7 +140,7 @@
                 return returnValue;
             }
 
-            ILocation unknownLocation = new Location(UnknownLocation);
+            Location unknownLocation = new Location(UnknownLocation);
             return unknownLocation;
 
             //ILocation newLocation = new Location(name);
@@ -159,9 +163,9 @@
         /// </summary>
         /// <param name="character">The search parameter</param>
         /// <returns>The collection of locations</returns>
-        public List<ILocation> GetLocationsByLetter(string character)
+        public List<Location> GetLocationsByLetter(string character)
         {
-            List<ILocation> locations = new List<ILocation>();
+            List<Location> locations = new List<Location>();
 
             locations =
               this.Locations.Locations.FindAll
@@ -208,13 +212,13 @@
                 return false;
             }
 
-            ILocation found =
+            Location found =
                 this.Locations.Locations.Find(
                     f => string.Compare(f.Name, imageDetails.LocationLiteral) == 0);
 
             if (found == null)
             {
-                ILocation newLocation =
+                Location newLocation =
                     new Location(
                         imageDetails.LocationLiteral);
                 this.Locations.Locations.Add(newLocation);

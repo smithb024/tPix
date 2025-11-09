@@ -3,14 +3,16 @@
     using NynaeveLib.ViewModel;
     using System;
     using System.Collections.ObjectModel;
+    using System.Security.Cryptography;
     using tPix.BL.Interfaces;
+    using tPix.BL.Model;
 
     /// <summary>
     /// View mode which supports a single line on the Locations Configuration view.
     /// </summary>
     public class LocationConfiguratorViewModel : ViewModelBase
     {
-        private ILocation location;
+        private Location location;
         private ObservableCollection<string> lines;
         private ObservableCollection<string> counties;
         private ObservableCollection<string> regions;
@@ -45,7 +47,7 @@
         /// <param name="regions">Collection of known regions.</param>
         /// <param name="big4Regions">Collection of known big regions.</param>
         public LocationConfiguratorViewModel(
-          ILocation location,
+          Location location,
           ObservableCollection<string> lines,
           ObservableCollection<string> counties,
           ObservableCollection<string> regions,
@@ -57,10 +59,22 @@
             this.regions = regions;
             this.big4Regions = big4Regions;
 
-            this.linesIndex = 0;
-            this.countiesIndex = 0;
-            this.regionsIndex = 0;
-            this.big4RegionsIndex = 0;
+            this.linesIndex = 
+                this.FindIndex(
+                    location.Line,
+                    this.lines);
+            this.countiesIndex =
+                this.FindIndex(
+                    location.County,
+                    this.counties);
+            this.regionsIndex =
+                this.FindIndex(
+                    location.Region,
+                    this.regions);
+            this.big4RegionsIndex =
+                this.FindIndex(
+                    location.Big4,
+                    this.big4Regions);
         }
 
         /// <summary>
@@ -178,6 +192,28 @@
                 this.OnPropertyChanged(nameof(this.Big4RegionsIndex));
                 this.location.Big4 = this.Big4Collection[this.Big4RegionsIndex];
             }
+        }
+
+        /// <summary>
+        /// Search the <paramref name="collection"/> for the value which equals <paramref name="searchValue"/>.
+        /// Return the index of the value. If no value is found, return an index of 0.
+        /// </summary>
+        /// <param name="searchValue">The value to search for</param>
+        /// <param name="collection">The collection to search</param>
+        /// <returns>The found index.</returns>
+        private int FindIndex(
+            string searchValue,
+            ObservableCollection<string> collection)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (string.Equals(collection[i], searchValue, StringComparison.OrdinalIgnoreCase))
+                {
+                    return i;
+                }
+            }
+
+            return 0;
         }
     }
 }

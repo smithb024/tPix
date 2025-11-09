@@ -83,10 +83,6 @@
             this.big4Regions = this.bLManager.GetBig4Regions();
 
             this.locations.Insert(0, string.Empty);
-            this.lines.Insert(0, string.Empty);
-            this.counties.Insert(0, string.Empty);
-            this.regions.Insert(0, string.Empty);
-            this.big4Regions.Insert(0, string.Empty);
         }
 
         /// <summary>

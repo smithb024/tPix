@@ -95,7 +95,7 @@
 
                 string[] nmbsArray = inputArray[0].Split(minorTick);
 
-                ILocation location =
+                Location location =
                     locationManager.GetLocation(
                         inputArray[1]);
 
