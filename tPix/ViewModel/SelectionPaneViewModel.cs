@@ -464,7 +464,7 @@
                 return LocationType.Region;
             }
 
-            if (!this.CurrentBig4RegionChecked)
+            if (this.CurrentBig4RegionChecked)
             {
                 return LocationType.Big4Location;
             }
