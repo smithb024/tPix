@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:tPix"
              mc:Ignorable="d" >
-    <Grid Height="50" Background="Red" >
+    <Grid Height="50" Background="LightPink" >
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*"/>
       <ColumnDefinition Width="*"/>

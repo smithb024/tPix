@@ -12,6 +12,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+
         <ItemsControl x:Name="tStack" Grid.Row="0" ItemsSource="{Binding Buttons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -24,23 +25,23 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Grid Grid.Row="1" x:Name="LocationsGrid">
-            <Border BorderBrush="BlueViolet" BorderThickness="5">
-                <ScrollViewer>
-                    <ListBox ItemsSource="{Binding Locations}"
-             HorizontalContentAlignment="Stretch"
-             Margin="0"
-             VerticalAlignment="Top"
-             Background="Transparent">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <local:LocationConfigurator/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </ScrollViewer>
-            </Border>
-        </Grid>
+
+        <Border Grid.Row="1" 
+                BorderBrush="BlueViolet"
+                BorderThickness="5">
+            <ListBox ItemsSource="{Binding Locations}"
+                     HorizontalContentAlignment="Stretch"
+                     Margin="0"
+                     VerticalAlignment="Top"
+                     Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <local:LocationConfigurator/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+        
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
