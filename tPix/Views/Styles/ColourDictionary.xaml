@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="StdBackgroundColour">#FF454545</Color>
+    <Color x:Key="LightBackgroundColour">#FF858585</Color>
+    <Color x:Key="DataEntryBackgroundColour">#FF202020</Color>
+    <SolidColorBrush x:Key="StdBackground" Color="{StaticResource StdBackgroundColour}"/>
+    <SolidColorBrush x:Key="LightBackground" Color="{StaticResource LightBackgroundColour}"/>
+    <SolidColorBrush x:Key="StdDataEntryBackgroundColour" Color="{StaticResource DataEntryBackgroundColour}"/>
+    <SolidColorBrush x:Key="StdForeground" Color="White"/>
+
+    <!--Button Colours-->
+    <Color x:Key="DisabledButtonBackgroundColour">DarkSeaGreen</Color>
+
+    <Color x:Key="ButtonBackgroundColour">#FF636363</Color>
+    <SolidColorBrush x:Key="ButtonBackground" Color="{StaticResource ButtonBackgroundColour}"/>
+    <SolidColorBrush x:Key="DisabledButtonBackgroundBrush" Color="{StaticResource DisabledButtonBackgroundColour}"/>
+    <SolidColorBrush x:Key="ButtonBackgroundHighlighted" Color="Olive"/>
+
+    <SolidColorBrush x:Key="ButtonControlBorder" Color="Honeydew"/>
+    <Color x:Key="ButtonPressedBackground">Gold</Color>
+    <SolidColorBrush x:Key="ButtonPressedBackgroundBrush" Color="{StaticResource ButtonPressedBackground}"/>
+    <Color x:Key="ButtonHoverBackground">Khaki</Color>
+    <SolidColorBrush x:Key="ButtonHoverBackgroundBrush" Color="{StaticResource ButtonHoverBackground}"/>
+    <Color x:Key="HeaderEventSelected">Red</Color>
+    <Color x:Key="ButtonIsSelectedColour">DarkGoldenrod</Color>
+    
+</ResourceDictionary>

@@ -3,7 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:tPix"
              StartupUri="MainWindow.xaml">
+
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/tPix;component/Views/Styles/ColourDictionary.xaml"/>
+                <ResourceDictionary Source="/tPix;component/Views/Styles/GenericStyle.xaml"/>
+                <ResourceDictionary Source="/tPix;component/Views/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/tPix;component/Views/Styles/ComboBoxStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
+    
 </Application>
