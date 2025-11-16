@@ -10,6 +10,7 @@
                 <ResourceDictionary Source="/tPix;component/Views/Styles/ColourDictionary.xaml"/>
                 <ResourceDictionary Source="/tPix;component/Views/Styles/GenericStyle.xaml"/>
                 <ResourceDictionary Source="/tPix;component/Views/Styles/ButtonStyles.xaml"/>
+                <ResourceDictionary Source="/tPix;component/Views/Styles/LabelStyles.xaml"/>
                 <ResourceDictionary Source="/tPix;component/Views/Styles/ComboBoxStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

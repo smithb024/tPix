@@ -76,7 +76,7 @@
         <Setter Property="IsEditable" Value="True"/>
         <Setter Property="IsTextSearchEnabled" Value="True"/>
         <Setter Property="MinWidth" Value="40"/>
-        <Setter Property="Height" Value="20"/>
+        <Setter Property="Height" Value="30"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ComboBoxItemStyle}"/>
         <Setter Property="Template">

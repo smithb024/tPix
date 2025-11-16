@@ -7,8 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
-    <Border BorderBrush="HotPink" 
-            BorderThickness="2">
+    <Border BorderBrush="{StaticResource StdForeground}" 
+            BorderThickness="2"
+            CornerRadius="5">
         <Image Source="{Binding Path=ImagePath}"/>
     </Border>
 </UserControl>
