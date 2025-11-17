@@ -5,26 +5,43 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:tPix"
              mc:Ignorable="d" >
-    <Grid Height="50" Background="LightPink" >
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="*"/>
-      <ColumnDefinition Width="*"/>
-    </Grid.ColumnDefinitions>
-    <TextBlock Grid.Column="0" Text="{Binding LocationName}"/>
-    <ComboBox Grid.Column="1"
-              ItemsSource="{Binding LineCollection}"
-              SelectedIndex="{Binding LinesIndex}"/>
-    <ComboBox Grid.Column="2"
-              ItemsSource="{Binding CountyCollection}"
-              SelectedIndex="{Binding CountiesIndex}"/>
-    <ComboBox Grid.Column="3"
-              ItemsSource="{Binding RegionCollection}"
-              SelectedIndex="{Binding RegionsIndex}"/>
-    <ComboBox Grid.Column="4"
-              ItemsSource="{Binding Big4Collection}"
-              SelectedIndex="{Binding Big4RegionsIndex}"/>
-  </Grid>
+    
+    <Grid Background="{StaticResource StdBackground}" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0"
+                   Foreground="{StaticResource StdForeground}"
+                   Text="{Binding Path=LocationName}"
+                   VerticalAlignment="Center"/>
+
+        <ComboBox Grid.Column="1"
+                  Margin="0,1,2,1"
+                  ItemsSource="{Binding Path=LineCollection}"
+                  SelectedIndex="{Binding Path=LinesIndex}"
+                  Style="{StaticResource ComboBoxStyle}"/>
+        
+        <ComboBox Grid.Column="2"
+                  Margin="0,1,2,1"
+                  ItemsSource="{Binding Path=CountyCollection}"
+                  SelectedIndex="{Binding Path=CountiesIndex}"
+                  Style="{StaticResource ComboBoxStyle}"/>
+        
+        <ComboBox Grid.Column="3"
+                  Margin="0,1,2,1"
+                  ItemsSource="{Binding Path=RegionCollection}"
+                  SelectedIndex="{Binding Path=RegionsIndex}"
+                  Style="{StaticResource ComboBoxStyle}"/>
+        
+        <ComboBox Grid.Column="4"
+                  Margin="0,1,2,1"
+                  ItemsSource="{Binding Path=Big4Collection}"
+                  SelectedIndex="{Binding Path=Big4RegionsIndex}"
+                  Style="{StaticResource ComboBoxStyle}"/>
+    </Grid>
 </UserControl>
