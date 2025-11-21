@@ -3,11 +3,49 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:commonConverters="clr-namespace:NynaeveLib.Enumerations.Converters;assembly=NynaeveLib"
              xmlns:local="clr-namespace:tPix"
              mc:Ignorable="d">
-    <Grid>
-    <Button Content="{Binding Letter}"
-            Width="30"
-            Command="{Binding LetterCommand}"/>
-  </Grid>
+
+    <UserControl.Resources>
+        <commonConverters:BoolToVisCollapsedVisibilityConverter x:Key="boolVisibilityConverter"/>
+    </UserControl.Resources>
+
+    <Border
+        BorderThickness="1"
+        Background="{StaticResource ButtonBackground}">
+        <Grid>
+            <Ellipse Visibility="{Binding Path=IsSelected, Converter={StaticResource boolVisibilityConverter}}">
+                <Ellipse.Fill>
+                    <RadialGradientBrush GradientOrigin="0.5, 0.5" Center="0.5, 0.5" RadiusX="0.75" RadiusY="0.75">
+                        <RadialGradientBrush.GradientStops>
+                            <GradientStop Color="{StaticResource ButtonIsSelectedColour}" Offset="0"/>
+                            <GradientStop Color="{StaticResource ButtonBackgroundColour}" Offset="0.8"/>
+                        </RadialGradientBrush.GradientStops>
+                    </RadialGradientBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock 
+                Text="{Binding Path=Letter}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Foreground="{StaticResource StdForeground}"/>
+        </Grid>
+        <Border.Style>
+            <Style TargetType="{x:Type Border}">
+                <Setter Property="BorderBrush" Value="{StaticResource ButtonBackground}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="BorderBrush" Value="{StaticResource ButtonHoverBackgroundBrush}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Border.Style>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="MouseLeftButtonDown">
+                <i:InvokeCommandAction Command="{Binding Path=LetterCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+    </Border>
 </UserControl>
