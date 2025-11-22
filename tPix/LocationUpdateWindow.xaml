@@ -6,14 +6,17 @@
         xmlns:local="clr-namespace:tPix"
         mc:Ignorable="d"
         Title="LocationUpdateWindow" >
-    <Grid>
+    
+    <Grid Background="{StaticResource StdBackground}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl x:Name="tStack" Grid.Row="0" ItemsSource="{Binding Buttons}">
+        <ItemsControl x:Name="tStack" 
+                      Grid.Row="0" 
+                      ItemsSource="{Binding Path=Buttons}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <StackPanel Orientation="Horizontal"/>
@@ -21,15 +24,15 @@
             </ItemsControl.ItemsPanel>
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                    <local:LetterButton />
+                    <local:LetterButton Width="30" />
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
 
         <Border Grid.Row="1" 
-                BorderBrush="BlueViolet"
+                BorderBrush="{StaticResource StdForeground}"
                 BorderThickness="5">
-            <ListBox ItemsSource="{Binding Locations}"
+            <ListBox ItemsSource="{Binding Path=Locations}"
                      HorizontalContentAlignment="Stretch"
                      Margin="0"
                      VerticalAlignment="Top"
@@ -50,11 +53,13 @@
 
             <Button Content="Check For New"
                     Grid.Column="0"
-                    Command="{Binding Path=CheckCommand}"/>
+                    Command="{Binding Path=CheckCommand}"
+                    Style="{StaticResource ButtonStyle}"/>
 
             <Button Content="Save"
                     Grid.Column="1"
-                    Command="{Binding Path=SaveCommand}"/>
+                    Command="{Binding Path=SaveCommand}"
+                    Style="{StaticResource ButtonStyle}"/>
         </Grid>
     </Grid>
 </Window>

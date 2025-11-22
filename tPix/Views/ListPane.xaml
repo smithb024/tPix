@@ -6,16 +6,19 @@
              xmlns:local="clr-namespace:tPix.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <ListBox ItemsSource="{Binding Path=Images}"
-                 SelectedIndex="{Binding Path=ImagesIndex}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel>
-                        <Label Content="{Binding Path=Description}"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </Grid>
+
+    <ListBox ItemsSource="{Binding Path=Images}"
+             SelectedIndex="{Binding Path=ImagesIndex}"
+             Background="{StaticResource StdBackground}"
+             Margin="1"
+             BorderThickness="0">
+        <ListBox.ItemTemplate>
+            <DataTemplate>
+                <StackPanel>
+                    <Label Content="{Binding Path=Description}"
+                           Style="{StaticResource StdLabelStyle}"/>
+                </StackPanel>
+            </DataTemplate>
+        </ListBox.ItemTemplate>
+    </ListBox>
 </UserControl>

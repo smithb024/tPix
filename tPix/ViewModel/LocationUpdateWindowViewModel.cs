@@ -6,7 +6,6 @@
     using System.Collections.ObjectModel;
     using System.Windows.Input;
     using tPix.BL;
-    using tPix.BL.Interfaces;
     using tPix.BL.Model;
 
     /// <summary>
@@ -14,6 +13,11 @@
     /// </summary>
     public class LocationUpdateWindowViewModel : ViewModelBase
     {
+        /// <summary>
+        /// The default letter.
+        /// </summary>
+        private const string DefaultLetter = "A";
+
         /// <summary>
         /// The instance of the <see cref="BLManager"/>.
         /// </summary>
@@ -42,8 +46,6 @@
             this.counties = this.blManager.GetCounties();
             this.regions = this.blManager.GetRegions();
             this.big4Regions = this.blManager.GetBig4Regions();
-
-            this.SetLocations("A");
 
             this.letterButtonViewModels =
                 new ObservableCollection<LetterButtonViewModel>
@@ -82,6 +84,8 @@
             this.CheckCommand =
                 new CommonCommand(
                     this.Check);
+
+            this.SetLocations(DefaultLetter);
         }
 
         /// <summary>
@@ -131,6 +135,7 @@
             }
 
             this.OnPropertyChanged(nameof(this.Locations));
+            this.NewLetterDisplayed(letter);
         }
 
         /// <summary>
@@ -148,7 +153,20 @@
         {
             this.blManager.Check();
             this.Save();
-            this.SetLocations("A");
+            this.SetLocations(DefaultLetter);
+            this.NewLetterDisplayed(DefaultLetter);
+        }
+
+        /// <summary>
+        /// Update tge buttons.
+        /// </summary>
+        /// <param name="newLetterName">The letter on the currently selected letter.</param>
+        private void NewLetterDisplayed(string newLetterName)
+        {
+            foreach (LetterButtonViewModel button in this.Buttons)
+            {
+                button.SelectedButton(newLetterName);
+            }
         }
     }
 }

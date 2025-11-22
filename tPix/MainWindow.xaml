@@ -8,21 +8,12 @@
         mc:Ignorable="d"
         Title="{Binding Path=ImageDescription}" Height="700" Width="1224" Background="Pink">
 
-  <Window.Resources>
-    <conveters:LocationToBoolConverter x:Key="locationConverter" Location="Location"/>
-    <conveters:LocationToBoolConverter x:Key="LineConverter" Location="Line"/>
-    <conveters:LocationToBoolConverter x:Key="countyConverter" Location="County"/>
-    <conveters:LocationToBoolConverter x:Key="regionConverter" Location="Region"/>
-    <conveters:LocationToBoolConverter x:Key="big4RegionConverter" Location="Big4Location"/>
-    <conveters:PathConverter x:Key="pathConverter"/>
-  </Window.Resources>
-
-    <Grid>
+    <Grid Background="{StaticResource StdBackground}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="AliceBlue">
+        <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>

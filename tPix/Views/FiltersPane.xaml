@@ -10,19 +10,33 @@
         <StackPanel Orientation="Horizontal">
             <ComboBox ItemsSource="{Binding Path=Locations}"
                       SelectedIndex="{Binding Path=LocationsIndex}"
-                      MinWidth="100"/>
+                      Style="{StaticResource ComboBoxStyle}"
+                      Margin="0,0,1,0"
+                      MinWidth="200"/>
+            
             <ComboBox ItemsSource="{Binding Path=Lines}"
                       SelectedIndex="{Binding Path=LinesIndex}"
-                      MinWidth="100"/>
+                      Style="{StaticResource ComboBoxStyle}"
+                      Margin="0,0,1,0"
+                      MinWidth="200"/>
+            
             <ComboBox ItemsSource="{Binding Path=Counties}"
                       SelectedIndex="{Binding Path=CountiesIndex}"
-                      MinWidth="100"/>
+                      Style="{StaticResource ComboBoxStyle}"
+                      Margin="0,0,1,0"
+                      MinWidth="200"/>
+            
             <ComboBox ItemsSource="{Binding Path=Regions}"
                       SelectedIndex="{Binding Path=RegionsIndex}"
-                      MinWidth="100"/>
+                      Style="{StaticResource ComboBoxStyle}"
+                      Margin="0,0,1,0"
+                      MinWidth="200"/>
+            
             <ComboBox ItemsSource="{Binding Path=Big4Regions}"
                       SelectedIndex="{Binding Path=Big4RegionsIndex}"
-                      MinWidth="100"/>
+                      Style="{StaticResource ComboBoxStyle}"
+                      Margin="0,0,1,0"
+                      MinWidth="200"/>
         </StackPanel>
     </Grid>
 </UserControl>

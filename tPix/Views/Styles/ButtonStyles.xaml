@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="ButtonStyle"
+           TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <Border 
+                            x:Name="myEllipse"
+                            BorderBrush="{StaticResource ButtonControlBorder}"
+                            BorderThickness="1"
+                            Background="{StaticResource ButtonBackground}">
+                        </Border>
+                        <ContentPresenter 
+                            HorizontalAlignment="Center" 
+                            VerticalAlignment="Center" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimation 
+                                            Storyboard.TargetName="myEllipse" 
+                                            To="{StaticResource ButtonHoverBackground}" 
+                                            Storyboard.TargetProperty="BorderBrush.Color" 
+                                            Duration="0:0:1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation 
+                                            Storyboard.TargetName="myEllipse" 
+                                            To="{StaticResource ButtonPressedBackground}" 
+                                            Storyboard.TargetProperty="BorderBrush.Color" 
+                                            Duration="0:0:0.1"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition To="Normal" GeneratedDuration="0:0:1" />
+                                    <VisualTransition To="MouseOver" />
+                                    <VisualTransition To="Pressed"/>
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="Foreground" Value="{StaticResource StdForeground}" />
+    </Style>
+
+</ResourceDictionary>

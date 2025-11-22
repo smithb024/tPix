@@ -1,28 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-namespace tPix
+﻿namespace tPix
 {
-  /// <summary>
-  /// Interaction logic for LetterButton.xaml
-  /// </summary>
-  public partial class LetterButton : UserControl
-  {
-    public LetterButton()
+    using System.Windows.Controls;
+
+    /// <summary>
+    /// Interaction logic for LetterButton.xaml
+    /// </summary>
+    public partial class LetterButton : UserControl
     {
-      InitializeComponent();
+        /// <summary>
+        /// Initialises a new instance of the <see cref="LetterButton"/> class.
+        /// </summary>
+        public LetterButton()
+        {
+            this.InitializeComponent();
+        }
     }
-  }
 }
