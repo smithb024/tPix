@@ -12,11 +12,11 @@
                             Margin="1" 
                             CornerRadius="2" 
                             Background="{StaticResource ButtonBackground}"
-                            BorderBrush="{StaticResource StdControlBorder}"
+                            BorderBrush="{StaticResource ButtonControlBorder}"
                             BorderThickness="1">
                         <Path HorizontalAlignment="Center"
                               VerticalAlignment="Center"
-                              Fill="{StaticResource StdControlBorder}"
+                              Fill="{StaticResource ButtonControlBorder}"
                               Data="{Binding Path=Content,RelativeSource={RelativeSource TemplatedParent}}" />
                     </Border>
                     <ControlTemplate.Triggers>
@@ -59,7 +59,7 @@
                 <ControlTemplate TargetType="{x:Type Thumb}">
                     <Border CornerRadius="2" 
                             Background="{StaticResource ButtonBackground}"
-                            BorderBrush="{StaticResource StdControlBorder}"
+                            BorderBrush="{StaticResource ButtonControlBorder}"
                             BorderThickness="1" />
                 </ControlTemplate>
             </Setter.Value>
@@ -92,7 +92,7 @@
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="1,0,1,0" 
                            Background="{StaticResource ButtonBackground}" 
-                           BorderBrush="{StaticResource StdControlBorder}"/>
+                           BorderBrush="{StaticResource ButtonControlBorder}"/>
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}"
@@ -133,7 +133,7 @@
                     <Thumb Style="{StaticResource ScrollBarThumb}" 
                            Margin="0,1,0,1"  
                            Background="{StaticResource ButtonBackground}"
-                           BorderBrush="{StaticResource StdControlBorder}" />
+                           BorderBrush="{StaticResource ButtonControlBorder}" />
                 </Track.Thumb>
                 <Track.IncreaseRepeatButton>
                     <RepeatButton Style="{StaticResource ScrollBarPageButton}"
