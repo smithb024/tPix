@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="/tPix;component/Views/Styles/ButtonStyles.xaml"/>
                 <ResourceDictionary Source="/tPix;component/Views/Styles/LabelStyles.xaml"/>
                 <ResourceDictionary Source="/tPix;component/Views/Styles/ComboBoxStyles.xaml"/>
+                <ResourceDictionary Source="/tPix;component/Views/Styles/ScrollBarStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
