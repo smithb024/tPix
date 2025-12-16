@@ -43,7 +43,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RepeatButton}">
-                    <Border Background="{StaticResource StdBackground}" />
+                    <Border Background="{StaticResource ButtonBackground}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -75,7 +75,7 @@
             </Grid.RowDefinitions>
             <Border Grid.RowSpan="3"
                     CornerRadius="0" 
-                    Background="Transparent" />
+                    Background="{StaticResource ButtonBackground}" />
             <RepeatButton Grid.Row="0"
                           Style="{StaticResource ScrollBarLineButton}"
                           Height="18"
@@ -116,7 +116,7 @@
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="3"
                     CornerRadius="2" 
-                    Background="#F0F0F0" />
+                    Background="{StaticResource ButtonBackground}" />
             <RepeatButton Grid.Column="0"
                           Style="{StaticResource ScrollBarLineButton}"
                           Width="18"
@@ -148,8 +148,15 @@
         </Grid>
     </ControlTemplate>
 
+    <!-- Gets rid of the annoying square at the bottom right of the scrollbars without defining a 
+    whole new control template to get rid of the rectangle called corner. Obviously not ideal because 
+    it's changing a system colour -->
+    <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}"
+                     Color="Transparent"/>
+    
     <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
         <Setter Property="SnapsToDevicePixels" Value="True"/>
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Style.Triggers>
             <Trigger Property="Orientation" Value="Horizontal">
