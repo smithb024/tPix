@@ -3,6 +3,7 @@
     using Interfaces;
     using Interfaces.ClsNmbConfig;
     using Interfaces.Factories;
+    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -44,6 +45,7 @@
             string[] jpgFiles = Directory.GetFiles(this.basePath, "*.jpg");
             string[] pngFiles = Directory.GetFiles(this.basePath, "*.png");
             string[] files = jpgFiles.Concat(pngFiles).ToArray();
+            Array.Sort(files);
 
             if (files != null && files.Length > 0)
             {
@@ -104,6 +106,7 @@
                 string[] jpgFiles = Directory.GetFiles(directories[index], "*.jpg");
                 string[] pngFiles = Directory.GetFiles(directories[index], "*.png");
                 string[] files = jpgFiles.Concat(pngFiles).ToArray();
+                Array.Sort(files);
 
                 if (files != null && files.Length > 0)
                 {
